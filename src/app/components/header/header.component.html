@@ -1,0 +1,18 @@
+<p>header works!</p>
+
+@if (activeUser.role === "Admin") {
+<h4>Create League</h4>
+<h4>Create Team</h4>
+<h4>Match day?</h4>
+<h4>Logout</h4>
+} @else if (activeUser.role === "Team Delegate") {
+    <h4>Add players</h4>
+    <h4>Logout</h4>
+} @else if (activeUser.role === "Arbitrator") {
+    <h4>Input</h4>
+    <h4>Logout</h4>
+} @else {
+    <h4>Logout</h4>
+}
+
+<router-outlet></router-outlet>

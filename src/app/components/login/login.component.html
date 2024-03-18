@@ -1,0 +1,7 @@
+<form (ngSubmit)="loginUserReducer(login)">
+  <input type="email" required name="username" [(ngModel)]="login.email" />
+  <br />
+  <input type="password" name="password" [(ngModel)]="login.password" />
+  <br />
+  <input type="submit" value="Login Reducer" />
+</form>
