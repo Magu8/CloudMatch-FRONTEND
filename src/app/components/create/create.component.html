@@ -1,0 +1,27 @@
+@if (value === "league") {
+
+<form (ngSubmit)="createLeague(league)">
+  <input
+    type="text"
+    name="leagueName"
+    placeholder="League name"
+    [(ngModel)]="league.league_name"
+  />
+  <br />
+  <input type="date" name="leagueStartDate" [(ngModel)]="league.start_date" />
+  <br />
+  <input type="date" name="leagueEndDate" [(ngModel)]="league.end_date" />
+  <br />
+  <input type="submit" value="Create League" />
+</form>
+} @else if (value === "team") {
+<form (ngSubmit)="createTeam(team)">
+  <input type="text" name="teamName" placeholder="Team name" [(ngModel)]="team.team_name"/>
+  <br>
+  <input type="submit" value="Create Team" />
+</form>
+} @else if (value === "match") {
+<p>You're going to create a match</p>
+} @else if (value === "player") { You're going to create a player } @else {
+<p>Ops?</p>
+}

@@ -1,18 +1,13 @@
 <p>header works!</p>
-
+<a [routerLink]="['/CloudMatch/HOME']">HOME</a>
 @if (activeUser.role === "Admin") {
-<h4>Create League</h4>
-<h4>Create Team</h4>
-<h4>Match day?</h4>
-<h4>Logout</h4>
+<a [routerLink]="['/CloudMatch/CREATE', { type: 'league' }]">Create League</a>
+<a [routerLink]="['/CloudMatch/CREATE', { type: 'team' }]">Create Team</a>
 } @else if (activeUser.role === "Team Delegate") {
-    <h4>Add players</h4>
-    <h4>Logout</h4>
+<h4>Add players</h4>
 } @else if (activeUser.role === "Arbitrator") {
-    <h4>Input</h4>
-    <h4>Logout</h4>
-} @else {
-    <h4>Logout</h4>
+<h4>Input</h4>
 }
+<a (click)="logOut()">Logout</a>
 
 <router-outlet></router-outlet>

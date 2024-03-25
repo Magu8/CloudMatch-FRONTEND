@@ -27,6 +27,6 @@ export class UserService {
     const registerUrl =
       'http://localhost/CloudMatch-BACKEND/php/users_controller/registerUser.php';
     const registerBody = JSON.stringify(user);
-    return this.http.post<any>(registerUrl, registerBody, this.httpOptions);
+    return this.http.post(registerUrl, registerBody, this.httpOptions);
   }
 }

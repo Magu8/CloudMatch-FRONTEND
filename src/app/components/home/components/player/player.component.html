@@ -1,1 +1,13 @@
 <p>player works!</p>
+<button (click)="btn()">aaaaa</button>
+<div>
+  <img src="{{ player.player_photo }}" alt="{{ player.player_nickname }}" />
+  <h2>{{ player.player_nickname }}</h2>
+  <h2>Nº {{ player.player_number }}</h2>
+  <h3>{{ player.player_name }} {{ player.player_surname }}</h3>
+  <h3>Age: {{ player.age }}</h3>
+  <h2>Team</h2>
+  <h3>{{ player.team_name }}</h3>
+  <img src="{{ player.team_logo }}" alt="{{ player.team_name }}" />
+  <h4>Member since: {{ player.member_since }}</h4>
+</div>

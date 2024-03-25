@@ -1,12 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { HomeComponent } from '../home/home.component';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { logOutActiveUser } from '../../actions/activeUser.actions';
 
 @Component({
   selector: 'cloudMatch-header',
   standalone: true,
-  imports: [HomeComponent, RouterOutlet],
+  imports: [HomeComponent, RouterOutlet, RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -18,13 +19,15 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.select('activeUser').subscribe((user) => {
-      setTimeout(() => {
-        if (user !== '') {
-          this.activeUser = user;
-        } else {
-          this.router.navigate(['']);
-        }
-      }, 100);
+      if (user !== '') {
+        this.activeUser = user;
+      } else {
+        this.router.navigate(['']);
+      }
     });
+  }
+
+  logOut() {
+    this.store.dispatch(logOutActiveUser());
   }
 }

@@ -7,6 +7,7 @@ import { provideStore } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
 import { provideEffects } from '@ngrx/effects';
 import { UserEffects } from './effects/user.effects';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 export const appConfig: ApplicationConfig = {
@@ -15,6 +16,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideClientHydration(),
     provideStore(reducers, { metaReducers }),
-    provideEffects(UserEffects)
+    provideEffects(UserEffects), provideAnimationsAsync()
 ],
 };

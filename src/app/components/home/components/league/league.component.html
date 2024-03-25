@@ -1,1 +1,40 @@
-<p>league works!</p>
+<div class="league">
+  <h1>LEAGUE</h1>
+
+  <mat-form-field>
+    <mat-label>Select a league</mat-label>
+    <mat-select
+      [(value)]="selectedLeagueId"
+      (valueChange)="getParti(selectedLeagueId)"
+    >
+      @for (league of leagues; track leagues.league_id) {
+      <mat-option value="{{ league.league_id }}">{{
+        league.league_name
+      }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  @if (participants.length !== 0) {
+  <h3>{{ participants[0].league }}</h3>
+  <h5>{{ participants[0].start_date }} - {{ participants[0].end_date }}</h5>
+  @if (participants.length === 0) {
+  <p>No participants</p>
+  } @else {
+  <div>
+    <h4>Logo</h4>
+    <h4>Name</h4>
+    <h4>Score</h4>
+  </div>
+  @for (participant of participants; track participant.team_id) {
+  <div [routerLink]="['/CloudMatch/Team', { info: participant.team_name }]">
+    <img src="{{ participant.team_logo }}" alt="{{ participant.team_name }}" />
+    <h3>{{ participant.team_name }}</h3>
+    <h3>0</h3>
+  </div>
+
+  } }} @else {
+    <br>
+  {{error}}
+  }
+</div>

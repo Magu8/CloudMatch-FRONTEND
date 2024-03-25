@@ -1,1 +1,22 @@
-<p>team works!</p>
+<div class="team"><h1>TEAM</h1></div>
+
+@if (team && players && Object.keys(team).length > 0 &&
+Object.keys(players).length > 0 ) {
+<div>
+  <h2>{{ team.team_name }}</h2>
+  <img src="{{ team.team_logo }}" alt="{{ team.team_name }}" />
+  <h3>Delegate:</h3>
+  <h2>{{ team.team_delegate }}</h2>
+  <h5>Wins: {{ team.wins }}</h5>
+  <h5>Loses: {{ team.loses }}</h5>
+</div>
+<div>
+  <h2>Players</h2>
+  @for (player of players; track players.player_id) {
+  <div [routerLink]="['/CloudMatch/Player', player.player_id]">
+    <img src="{{ player.player_photo }}" alt="{{ player.player_nickname }}" />
+    <h3>{{ player.player_nickname }}</h3>
+  </div>
+  }
+</div>
+}
