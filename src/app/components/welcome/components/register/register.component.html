@@ -9,3 +9,8 @@
   <br />
   <input type="submit" value="Register account" />
 </form>
+@if (alert !== '' && error === '') {
+  <h3>{{alert}}</h3>
+} @else if (error !== '' && alert === '') {
+  <h3>{{error}}</h3>
+} @else {}

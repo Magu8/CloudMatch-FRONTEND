@@ -14,14 +14,39 @@
   <br />
   <input type="submit" value="Create League" />
 </form>
-} @else if (value === "team") {
+
+@if (alert !== '' && error === '') {
+<h3>{{ alert }}</h3>
+} @else if (error !== '' && alert === '') {
+<h3>{{ error }}</h3>
+} @else {} } @else if (value === "team") {
+
 <form (ngSubmit)="createTeam(team)">
-  <input type="text" name="teamName" placeholder="Team name" [(ngModel)]="team.team_name"/>
-  <br>
+  <input
+    type="text"
+    name="teamName"
+    placeholder="Team name"
+    [(ngModel)]="team.team_name"
+  />
+  <br />
+  <mat-form-field>
+    <mat-label>Select a Team delegate</mat-label>
+    <mat-select [(value)]="selectedUserId">
+      @for (user of users; track users.user_id) {
+      <mat-option value="{{ user.user_id }}"
+        >{{ user.user_name }} {{ user.user_surname }}</mat-option
+      >
+      }
+    </mat-select>
+  </mat-form-field>
+  <br />
   <input type="submit" value="Create Team" />
 </form>
-} @else if (value === "match") {
+
+@if (alert !== '' && error === '') {
+<h3>{{ alert }}</h3>
+} @else if (error !== '' && alert === '') {
+<h3>{{ error }}</h3>
+} @else {} } @else if (value === "match") {
 <p>You're going to create a match</p>
-} @else if (value === "player") { You're going to create a player } @else {
-<p>Ops?</p>
-}
+} @else if (value === "player") { You're going to create a player }

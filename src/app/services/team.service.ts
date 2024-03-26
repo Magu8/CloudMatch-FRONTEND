@@ -31,5 +31,12 @@ export class TeamService {
     return this.http.get(getTeamPlayersUrl, this.httpOptions);
   }
 
+  getMyTeam(delegateId: number) {
+    const getMyTeamUrl = `http://localhost/CloudMatch-BACKEND/php/teams_controller/getMyTeam.php?delegate_id=${delegateId}`
+    return this.http.get(getMyTeamUrl, this.httpOptions)
+  }
+
+  
+
 
 }

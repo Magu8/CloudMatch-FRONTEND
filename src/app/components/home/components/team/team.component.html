@@ -1,4 +1,27 @@
+@if (value === "delegate") {
+
+<div class="team"><h1>MY TEAM</h1></div>
+<div>
+  <h2>{{myTeam.team_name}}</h2>
+  <img src="{{myTeam.team_logo}}" alt="{{myTeam.team_name}}">
+  <h3>Delegate:</h3>
+  <h2>{{myTeam.team_delegate}}</h2>
+</div>
+
+<div>
+  <h2>Players</h2>
+  <h1>TODO</h1>
+</div>
+
+
+<button (click)="mytm()">a</button>
+
+
+} @else {
+
 <div class="team"><h1>TEAM</h1></div>
+
+} 
 
 @if (team && players && Object.keys(team).length > 0 &&
 Object.keys(players).length > 0 ) {
@@ -20,3 +43,4 @@ Object.keys(players).length > 0 ) {
   }
 </div>
 }
+

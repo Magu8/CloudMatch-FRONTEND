@@ -29,4 +29,11 @@ export class UserService {
     const registerBody = JSON.stringify(user);
     return this.http.post(registerUrl, registerBody, this.httpOptions);
   }
+
+  getAllUsers(){
+    const getAllUsersUrl = 'http://localhost/CloudMatch-BACKEND/php/users_controller/getAllUsers.php';
+    return this.http.get(getAllUsersUrl, this.httpOptions)
+  }
+
+
 }

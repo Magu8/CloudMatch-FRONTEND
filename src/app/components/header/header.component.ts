@@ -27,6 +27,10 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  getAct() {
+    console.log(this.activeUser);
+  }
+
   logOut() {
     this.store.dispatch(logOutActiveUser());
   }

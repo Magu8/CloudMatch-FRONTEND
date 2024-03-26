@@ -1,10 +1,10 @@
-<p>header works!</p>
+<p>Welcome back, {{ activeUser.user_name }} {{ activeUser.user_surname }}</p>
 <a [routerLink]="['/CloudMatch/HOME']">HOME</a>
 @if (activeUser.role === "Admin") {
 <a [routerLink]="['/CloudMatch/CREATE', { type: 'league' }]">Create League</a>
 <a [routerLink]="['/CloudMatch/CREATE', { type: 'team' }]">Create Team</a>
 } @else if (activeUser.role === "Team Delegate") {
-<h4>Add players</h4>
+<a [routerLink]="['/CloudMatch/Team', { type: 'delegate' }]">My Team</a>
 } @else if (activeUser.role === "Arbitrator") {
 <h4>Input</h4>
 }

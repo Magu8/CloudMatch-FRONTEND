@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { Login } from '../../models/login';
+import { Login } from '../../../../models/login';
 import { FormsModule } from '@angular/forms';
 
 import { Store } from '@ngrx/store';
-import { logActiveUser } from '../../actions/activeUser.actions';
+import { logActiveUser } from '../../../../actions/activeUser.actions';
 
 @Component({
   selector: 'cloudMatch-login',
@@ -17,8 +17,8 @@ export class LoginComponent {
   private store = inject(Store);
 
   login: Login = {
-    email: 'mg@cloudMatch.com',
-    password: 'iamadmin',
+    email: 'ds@cloudMatch.com',
+    password: 'iamdelegate',
   };
 
   loginUserReducer(loginBody: Login) {

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TeamService } from '../../../../services/team.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'team',
@@ -10,26 +11,53 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
   styleUrl: './team.component.scss',
 })
 export class TeamComponent implements OnInit {
-  favoriteTeams?: any = [{}];
+  value?: string = '';
+  favoriteTeams?: any = [];
   team?: any = {};
+  myTeam?: any = {};
   players?: any = {};
+  //TODO
+  myPlayers?: any = {};
+  activeUser?: any = {};
   Object = Object;
 
   constructor(
     private teamService: TeamService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
+  private store = inject(Store);
 
   ngOnInit(): void {
+    this.store.select('activeUser').subscribe((activeUserData) => {
+      this.activeUser = activeUserData;
+    });
     this.route.params.subscribe((params) => {
-      this.teamService.getTeam(params['info']).subscribe((data) => {
-        this.team = data;
-        this.teamService.getTeamPlayers(this.team.team_id).subscribe((data) => {
-          this.players = data;
+      this.value = params['type'];
+      if (this.value === 'delegate') {
+        if (this.activeUser.role === 'Team Delegate') {
+          this.teamService
+            .getMyTeam(this.activeUser.user_id)
+            .subscribe((myTeamData) => {
+              this.myTeam = myTeamData;
+            });
+        } else {
+          this.router.navigate(['']);
+        }
+      } else if (params['info']) {
+        this.teamService.getTeam(params['info']).subscribe((teamData) => {
+          this.team = teamData;
+          this.teamService
+            .getTeamPlayers(this.team.team_id)
+            .subscribe((playersData) => {
+              this.players = playersData;
+            });
         });
-      });
+      }
     });
   }
 
-
+  mytm() {
+    console.log(this.myTeam);
+  }
 }

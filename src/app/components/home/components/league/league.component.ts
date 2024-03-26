@@ -3,11 +3,6 @@ import { LeagueService } from '../../../../services/league.service';
 import { RouterLink } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {
-  BrowserAnimationsModule,
-  NoopAnimationsModule,
-} from '@angular/platform-browser/animations';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'league',
@@ -22,7 +17,9 @@ export class LeagueComponent implements OnInit {
   leagues?: any = [];
   participants?: any = [];
   selectedLeagueId: number = 0;
+  leagueInfo?: any = {};
   error: string = '';
+  Object = Object;
 
   ngOnInit(): void {
     this.leagueService.getAllLeagues().subscribe((data) => {
@@ -31,6 +28,9 @@ export class LeagueComponent implements OnInit {
   }
 
   getParti(leagueId: number) {
+    this.leagueService.getLeague(leagueId).subscribe(data => {
+      this.leagueInfo = data;
+    })
     this.leagueService.getLeagueParticipants(leagueId).subscribe({
       next: (info) => {
         this.participants = info;
@@ -38,7 +38,7 @@ export class LeagueComponent implements OnInit {
       },
       error: () => {
         this.participants = [];
-        this.error = 'No participants';
+        this.error = 'No participants yet';
       },
     });
   }

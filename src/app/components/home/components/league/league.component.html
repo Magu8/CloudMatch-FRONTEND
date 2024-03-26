@@ -1,6 +1,5 @@
 <div class="league">
   <h1>LEAGUE</h1>
-
   <mat-form-field>
     <mat-label>Select a league</mat-label>
     <mat-select
@@ -14,13 +13,10 @@
       }
     </mat-select>
   </mat-form-field>
-
+  @if(Object.keys(leagueInfo).length > 0) {
+  <h3>{{ leagueInfo.league_name }}</h3>
+  <h5>{{ leagueInfo.start_date }} - {{ leagueInfo.end_date }}</h5>
   @if (participants.length !== 0) {
-  <h3>{{ participants[0].league }}</h3>
-  <h5>{{ participants[0].start_date }} - {{ participants[0].end_date }}</h5>
-  @if (participants.length === 0) {
-  <p>No participants</p>
-  } @else {
   <div>
     <h4>Logo</h4>
     <h4>Name</h4>
@@ -32,9 +28,10 @@
     <h3>{{ participant.team_name }}</h3>
     <h3>0</h3>
   </div>
-
-  } }} @else {
-    <br>
-  {{error}}
+  }} @else {
+  <br />
+  {{ error }}
+  } } @else {
+  <br />
   }
 </div>
