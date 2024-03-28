@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router) {}
   private store = inject(Store);
 
-  activeUser: any = {};
+  activeUser: any = null;
 
   ngOnInit(): void {
     this.store.select('activeUser').subscribe((user) => {

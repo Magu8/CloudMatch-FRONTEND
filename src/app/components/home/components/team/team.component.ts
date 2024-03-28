@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { TeamService } from '../../../../services/team.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { setMyTeam } from '../../../../actions/myTeam.actions';
 
 @Component({
   selector: 'team',
@@ -39,7 +40,13 @@ export class TeamComponent implements OnInit {
           this.teamService
             .getMyTeam(this.activeUser.user_id)
             .subscribe((myTeamData) => {
+              this.store.dispatch(setMyTeam({ myTeam: myTeamData }));
               this.myTeam = myTeamData;
+              this.teamService
+                .getTeamPlayers(this.myTeam.team_id)
+                .subscribe((myTeamPlayers) => {
+                  this.players = myTeamPlayers;
+                });
             });
         } else {
           this.router.navigate(['']);
@@ -58,6 +65,6 @@ export class TeamComponent implements OnInit {
   }
 
   mytm() {
-    console.log(this.myTeam);
+    console.log(this.players);
   }
 }

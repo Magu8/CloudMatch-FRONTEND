@@ -5,7 +5,8 @@
 <a [routerLink]="['/CloudMatch/CREATE', { type: 'team' }]">Create Team</a>
 } @else if (activeUser.role === "Team Delegate") {
 <a [routerLink]="['/CloudMatch/Team', { type: 'delegate' }]">My Team</a>
-} @else if (activeUser.role === "Arbitrator") {
+<a [routerLink]="['/CloudMatch/CREATE', { type: 'player' }]">Add Player</a>
+} @else if (activeUser.role === "Referee") {
 <h4>Input</h4>
 }
 <a (click)="logOut()">Logout</a>

@@ -14,12 +14,7 @@
   <br />
   <input type="submit" value="Create League" />
 </form>
-
-@if (alert !== '' && error === '') {
-<h3>{{ alert }}</h3>
-} @else if (error !== '' && alert === '') {
-<h3>{{ error }}</h3>
-} @else {} } @else if (value === "team") {
+} @else if (value === "team") {
 
 <form (ngSubmit)="createTeam(team)">
   <input
@@ -42,11 +37,49 @@
   <br />
   <input type="submit" value="Create Team" />
 </form>
-
-@if (alert !== '' && error === '') {
+} @else if (value === "player") {
+<form (ngSubmit)="createPlayer(player)">
+  <input
+    type="text"
+    name="playerName"
+    placeholder="Player name"
+    [(ngModel)]="player.player_name"
+  />
+  <br>
+  <input
+    type="text"
+    name="playerSurname"
+    placeholder="Player surname"
+    [(ngModel)]="player.player_surname"
+  />
+  <br>
+  <input
+    type="text"
+    name="playerNickname"
+    placeholder="Player nick"
+    [(ngModel)]="player.player_nickname"
+  />
+  <br>
+  <input
+    type="text"
+    name="playerPhoto"
+    placeholder="Player photo"
+    [(ngModel)]="player.player_photo"
+  />
+  <br>
+  <input
+    type="number"
+    name="playerAge"
+    placeholder="Player age"
+    [(ngModel)]="player.age"
+  />
+  <br>
+  <input type="submit" value="Add Player" />
+</form>
+} @else if (value === "match") {
+<p>You're going to create a match</p>
+} @if (alert !== '' && error === '') {
 <h3>{{ alert }}</h3>
 } @else if (error !== '' && alert === '') {
 <h3>{{ error }}</h3>
-} @else {} } @else if (value === "match") {
-<p>You're going to create a match</p>
-} @else if (value === "player") { You're going to create a player }
+} @else {}

@@ -1,6 +1,7 @@
 export interface Player {
-    name: string,
-    surname: string,
-    nickname: string,
-    age: number
+  player_name: string;
+  player_surname: string;
+  player_nickname: string;
+  player_photo: string;
+  age: number;
 }

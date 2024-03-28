@@ -7,13 +7,15 @@ import {
   MetaReducer
 } from '@ngrx/store';
 import { ActiveUserReducer } from './activeUser.reducer';
+import { MyTeamReducer } from './myTeam.reducer';
 
 export interface State {
 
 }
 
 export const reducers: ActionReducerMap<State> = {
-activeUser: ActiveUserReducer
+activeUser: ActiveUserReducer,
+myTeam: MyTeamReducer
 };
 
 

@@ -14,8 +14,8 @@ export class PlayerService {
 
   constructor(private http: HttpClient) {}
 
-  createPlayer(player: Player) {
-    const createPlayerUrl = 'http://localhost/CloudMatch-BACKEND/php/players_controller/createPlayer.php';
+  createPlayer(player: Player, teamId: number) {
+    const createPlayerUrl = `http://localhost/CloudMatch-BACKEND/php/players_controller/createPlayer.php?team_id=${teamId}`;
     const playerBody = JSON.stringify(player);
     return this.http.post(createPlayerUrl, playerBody, this.httpOptions);
   }
