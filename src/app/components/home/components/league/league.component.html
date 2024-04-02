@@ -1,57 +1,61 @@
-<div class="league"><h1>LEAGUE</h1></div>
-@if (!leaguesError) {
-<mat-form-field>
-  <mat-label>Select a league</mat-label>
-  <mat-select
-    [(value)]="selectedLeagueId"
-    (valueChange)="getParticipants(selectedLeagueId)"
-  >
-    @for (league of leagues; track leagues.league_id) {
-    <mat-option value="{{ league.league_id }}">{{
-      league.league_name
-    }}</mat-option>
-    }
-  </mat-select>
-</mat-form-field>
-} @else {
-<mat-label>{{ leaguesError }}</mat-label>
-} @if(Object.keys(leagueInfo).length > 0) {
-<img src="{{ leagueInfo.league_logo }}" alt="{{ leagueInfo.league_name }}" />
-<h3>{{ leagueInfo.league_name }}</h3>
-<h5>{{ leagueInfo.start_date }} - {{ leagueInfo.end_date }}</h5>
-@if (activeUser.role === "Team Delegate") {
-<button (click)="participateTeamIntoLeague(leagueInfo.league_id)">
-  Participate team into {{ leagueInfo.league_name }}
-</button>
-{{ alert }}
-} @if (participants.length !== 0) {
-<div>
-  <h4>Logo</h4>
-  <h4>Name</h4>
-  <h4>Score</h4>
-</div>
-<button (click)="parti()">a</button>
-@for (participant of participants; track participant.team_id) {
-<div>
-  @if(activeUser.user_id === participant.team_delegate){
-  <img
-    [routerLink]="['/CloudMatch/Team', { type: 'delegate' }]"
-    src="{{ participant.team_logo }}"
-    alt="{{ participant.team_name }}"
-  />
+<div class="league">
+  <h1>LEAGUE</h1>
+  @if (!leaguesError) {
+  <mat-form-field>
+    <mat-label>Select a league</mat-label>
+    <mat-select
+      [(value)]="selectedLeagueId"
+      (valueChange)="getParticipants(selectedLeagueId)"
+    >
+      @for (league of leagues; track leagues.league_id) {
+      <mat-option value="{{ league.league_id }}">{{
+        league.league_name
+      }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <calendar [leagueId]="leagueInfo.league_id" />
   } @else {
-  <img
-    [routerLink]="['/CloudMatch/Team', { info: participant.team_name }]"
-    src="{{ participant.team_logo }}"
-    alt="{{ participant.team_name }}"
-  />}
+  <mat-label>{{ leaguesError }}</mat-label>
+  } @if(Object.keys(leagueInfo).length > 0) {
+  <img src="{{ leagueInfo.league_logo }}" alt="{{ leagueInfo.league_name }}" />
+  <h3>{{ leagueInfo.league_name }}</h3>
+  <h5>{{ leagueInfo.start_date }} - {{ leagueInfo.end_date }}</h5>
+  @if (activeUser.role === "Team Delegate") {
+  <button (click)="participateTeamIntoLeague(leagueInfo.league_id)">
+    Participate team into {{ leagueInfo.league_name }}
+  </button>
+  {{ alert }}
+  } @if (participants.length !== 0) {
+  <div>
+    <h4>Logo</h4>
+    <h4>Name</h4>
+    <h4>Score</h4>
+  </div>
+  @for (participant of participants; track participant.team_id) {
+  <div>
+    @if(activeUser.user_id === participant.team_delegate){
+    <img
+      [routerLink]="['/CloudMatch/Team', { type: 'delegate' }]"
+      src="{{ participant.team_logo }}"
+      alt="{{ participant.team_name }}"
+    />
+    } @else {
+    <img
+      [routerLink]="['/CloudMatch/Team', { info: participant.team_name }]"
+      src="{{ participant.team_logo }}"
+      alt="{{ participant.team_name }}"
+    />}
 
-  <h3>{{ participant.team_name }}</h3>
-  <h3>0</h3>
+    <h3>{{ participant.team_name }}</h3>
+    <h3>{{ participant.score }}</h3>
+  </div>
+  }} @else {
+  <br />
+  {{ error }}
+  } } @else {
+  <br />
+  }
+
+  <calendar [leagueId]="leagueInfo.league_id" />
 </div>
-}} @else {
-<br />
-{{ error }}
-} } @else {
-<br />
-}

@@ -17,9 +17,8 @@ export class TeamComponent implements OnInit {
   team?: any = {};
   myTeam?: any = {};
   players?: any = {};
-  //TODO
-  myPlayers?: any = {};
   activeUser?: any = {};
+  error: string = '';
   Object = Object;
 
   constructor(
@@ -42,11 +41,15 @@ export class TeamComponent implements OnInit {
             .subscribe((myTeamData) => {
               this.store.dispatch(setMyTeam({ myTeam: myTeamData }));
               this.myTeam = myTeamData;
-              this.teamService
-                .getTeamPlayers(this.myTeam.team_id)
-                .subscribe((myTeamPlayers) => {
-                  this.players = myTeamPlayers;
-                });
+              this.teamService.getTeamPlayers(this.myTeam.team_id).subscribe({
+                next: (myTeamPlayersData) => {
+                  this.error = '';
+                  this.players = myTeamPlayersData;
+                },
+                error: (fail) => {
+                  this.error = fail.error.message;
+                },
+              });
             });
         } else {
           this.router.navigate(['']);
@@ -54,11 +57,14 @@ export class TeamComponent implements OnInit {
       } else if (params['info']) {
         this.teamService.getTeam(params['info']).subscribe((teamData) => {
           this.team = teamData;
-          this.teamService
-            .getTeamPlayers(this.team.team_id)
-            .subscribe((playersData) => {
+          this.teamService.getTeamPlayers(this.team.team_id).subscribe({
+            next: (playersData) => {
               this.players = playersData;
-            });
+            },
+            error: (fail) => {
+              this.error = fail.error.message;
+            },
+          });
         });
       }
     });

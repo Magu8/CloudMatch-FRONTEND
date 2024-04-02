@@ -5,8 +5,6 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { League } from '../models/league';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CalendarComponent } from './components/calendar/calendar.component';
+import { CalendarComponent } from './components/league/calendar/calendar.component';
 import { LeagueComponent } from './components/league/league.component';
 import { PlayerComponent } from './components/player/player.component';
 import { TeamComponent } from './components/team/team.component';
@@ -13,7 +13,6 @@ import { setMyTeam } from '../../actions/myTeam.actions';
   standalone: true,
   imports: [
     MatchComponent,
-    CalendarComponent,
     LeagueComponent,
     TeamComponent,
     PlayerComponent,

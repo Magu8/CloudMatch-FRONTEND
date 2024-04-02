@@ -11,6 +11,9 @@ import { UserService } from '../../services/user.service';
 import { Player } from '../../models/player';
 import { Store } from '@ngrx/store';
 import { PlayerService } from '../../services/player.service';
+import { Match } from '../../models/match';
+import { MatchService } from '../../services/match.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-create',
@@ -21,18 +24,28 @@ import { PlayerService } from '../../services/player.service';
 })
 export class CreateComponent implements OnInit {
   value?: string = '';
+
   users: any = [];
+  leagues: any = [];
+  teams: any = [];
+
+  myTeamId?: any = null;
+  selectedLeagueId: number = 0;
+  selectedTeamLocalId: number = 0;
+  selectedTeamVisitorId: number = 0;
   selectedUserId: number = 0;
+  selectedRole: string = '';
+
   alert?: string = '';
   error?: string = '';
-  myTeamId?: any = null;
 
   constructor(
     private route: ActivatedRoute,
     private leagueService: LeagueService,
     private teamService: TeamService,
     private userService: UserService,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private matchService: MatchService
   ) {}
   private store = inject(Store);
 
@@ -49,6 +62,31 @@ export class CreateComponent implements OnInit {
     this.userService.getAllUsers().subscribe((allUsersData) => {
       this.users = allUsersData;
     });
+    if (this.value === 'match') {
+      this.leagueService.getAllLeagues().subscribe((leaguesData) => {
+        this.leagues = leaguesData;
+      });
+      this.teamService.getAllTeams().subscribe((teamsData) => {
+        this.teams = teamsData;
+      });
+    }
+  }
+
+  user: User = {
+    role: '',
+  };
+
+  editUserRole(userRole: User, userId: number) {
+    this.userService.editUserRole(userRole, userId).subscribe({
+      next: (success: any) => {
+        this.error = '';
+        this.alert = success.message;
+      },
+      error: (fail: any) => {
+        this.alert = '';
+        this.error = fail.error.message;
+      },
+    });
   }
 
   league: League = {
@@ -56,12 +94,45 @@ export class CreateComponent implements OnInit {
     start_date: '',
     end_date: '',
   };
+  createLeague(leagueBody: League) {
+    this.leagueService.createLeague(leagueBody).subscribe({
+      next: (success: any) => {
+        this.error = '';
+        this.alert = success.message;
+      },
+      error: (fail: any) => {
+        this.alert = '';
+        if (fail.error.message === 'Invalid dates') {
+          this.error = fail.error.message;
+        } else {
+          this.error = fail.error.message;
+        }
+      },
+    });
+  }
 
   team: Team = {
     team_name: '',
     team_logo: '',
     team_delegate: 0,
   };
+  createTeam(teamBody: Team) {
+    this.team.team_delegate = this.selectedUserId;
+    this.teamService.createTeam(teamBody).subscribe({
+      next: (success: any) => {
+        this.error = '';
+        this.alert = success.message;
+      },
+      error: (fail: any) => {
+        this.alert = '';
+        if (fail.status === 409) {
+          this.error = fail.error.message;
+        } else {
+          this.error = fail.error.message;
+        }
+      },
+    });
+  }
 
   player: Player = {
     player_name: '',
@@ -70,63 +141,51 @@ export class CreateComponent implements OnInit {
     player_photo: '',
     age: 0,
   };
-
-  createLeague(leagueBody: League) {
-    this.leagueService.createLeague(leagueBody).subscribe({
-      next: () => {
-        this.error = '';
-        this.alert = 'League succesfully created!';
-      },
-      error: (error) => {
-        this.alert = '';
-        if (error.error.error === 'Invalid dates') {
-          this.error = 'Invalid dates';
-        } else {
-          this.error = 'Must fill all the fields';
-        }
-      },
-    });
-  }
-
-  createTeam(teamBody: Team) {
-    this.team.team_delegate = this.selectedUserId;
-    this.teamService.createTeam(teamBody).subscribe({
-      next: () => {
-        this.error = '';
-        this.alert = 'Team succesfully created!';
-      },
-      error: (error) => {
-        this.alert = '';
-        if (error.status === 409) {
-          this.error = 'This team name is already taken';
-        } else {
-          this.error = 'Must fill all the fields';
-        }
-      },
-    });
-  }
-
   createPlayer(playerBody: Player) {
-    console.log(playerBody);
-    
     this.playerService.createPlayer(playerBody, this.myTeamId).subscribe({
-      next: () => {
+      next: (success: any) => {
         this.error = '';
-        this.alert = 'Player successfully created';
+        this.alert = success.message;
       },
-      error: (error) => {
-        console.log(error);
-        
+      error: (fail: any) => {
         this.alert = '';
-        if(error.status === 409){
-          this.error = 'This player already exists'
-        } else if (error.error.error === "Underaged player") {
-          this.error = 'Player must be over 13';
+        if (fail.status === 409) {
+          this.error = fail.error.message;
+        } else if (fail.error.message === 'Underaged player') {
+          this.error = fail.error.message;
         } else {
-          this.error = 'Must fill all the fields'
+          this.error = fail.error.message;
         }
-      }
-    })
-    
+      },
+    });
+  }
+
+  match: Match = {
+    match_date: '',
+    match_time: '',
+  };
+  createMatchDay(matchBody: Match) {
+    this.matchService
+      .createMatch(
+        matchBody,
+        this.selectedLeagueId,
+        this.selectedTeamLocalId,
+        this.selectedTeamVisitorId,
+        this.selectedUserId
+      )
+      .subscribe({
+        next: (success: any) => {
+          this.error = '';
+          this.alert = success.message;
+        },
+        error: (fail: any) => {
+          this.alert = '';
+          if (fail.status === 404) {
+            this.error = fail.error.message;
+          } else {
+            this.error = fail.error.message;
+          }
+        },
+      });
   }
 }

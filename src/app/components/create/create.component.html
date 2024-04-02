@@ -45,41 +45,106 @@
     placeholder="Player name"
     [(ngModel)]="player.player_name"
   />
-  <br>
+  <br />
   <input
     type="text"
     name="playerSurname"
     placeholder="Player surname"
     [(ngModel)]="player.player_surname"
   />
-  <br>
+  <br />
   <input
     type="text"
     name="playerNickname"
     placeholder="Player nick"
     [(ngModel)]="player.player_nickname"
   />
-  <br>
+  <br />
   <input
     type="text"
     name="playerPhoto"
     placeholder="Player photo"
     [(ngModel)]="player.player_photo"
   />
-  <br>
+  <br />
   <input
     type="number"
     name="playerAge"
     placeholder="Player age"
     [(ngModel)]="player.age"
   />
-  <br>
+  <br />
   <input type="submit" value="Add Player" />
 </form>
 } @else if (value === "match") {
-<p>You're going to create a match</p>
+<form (ngSubmit)="createMatchDay(match)">
+  <input type="date" name="matchDate" [(ngModel)]="match.match_date" />
+  <br />
+  <input type="time" name="matcTime" [(ngModel)]="match.match_time" />
+  <br />
+  <mat-form-field>
+    <mat-label>Select a league </mat-label>
+    <mat-select [(value)]="selectedLeagueId">
+      @for (league of leagues; track leagues.league_id) {
+      <mat-option value="{{ league.league_id }}">{{
+        league.league_name
+      }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Select a Local Team</mat-label>
+    <mat-select [(value)]="selectedTeamLocalId">
+      @for (team of teams; track teams.team_id) {
+      <mat-option value="{{ team.team_id }}">{{ team.team_name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Select a Visitor Team</mat-label>
+    <mat-select [(value)]="selectedTeamVisitorId">
+      @for (team of teams; track teams.team_id) {
+      <mat-option value="{{ team.team_id }}">{{ team.team_name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Select a Referee</mat-label>
+    <mat-select [(value)]="selectedUserId">
+      @for (user of users; track users.user_id) {
+      <mat-option value="{{ user.user_id }}"
+        >{{ user.user_name }} {{ user.user_surname }}</mat-option
+      >
+      }</mat-select
+    >
+  </mat-form-field>
+  <input type="submit" value="Create Match Day" />
+</form>
+} @else if (value === "edit_role") {
+<form (ngSubmit)="editUserRole(user, selectedUserId)">
+  <mat-form-field>
+    <mat-label>Select a user</mat-label>
+    <mat-select [(value)]="selectedUserId">
+      @for (user of users; track users.user_id) {
+      <mat-option value="{{ user.user_id }}"
+        >{{ user.user_name }} {{ user.user_surname }}</mat-option
+      >
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Select a role</mat-label>
+    <mat-select [(value)]="user.role">
+      <mat-option value="Admin">Admin</mat-option>
+      <mat-option value="Referee">Referee</mat-option>
+      <mat-option value="Team Delegate">Team Delegate</mat-option>
+      <mat-option value="User">User</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <input type="submit" value="Edit Role" />
+</form>
 } @if (alert !== '' && error === '') {
 <h3>{{ alert }}</h3>
 } @else if (error !== '' && alert === '') {
 <h3>{{ error }}</h3>
-} @else {}
+}

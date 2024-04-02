@@ -9,13 +9,16 @@
 </div>
 
 <h2>Players</h2>
+<h4>{{ error }}</h4>
+<a [routerLink]="['/CloudMatch/CREATE', { type: 'player' }]">Add Player</a>
 @for (player of players; track players.player_id) {
 <div [routerLink]="['/CloudMatch/Player', player.player_id]">
   <img src="{{ player.player_photo }}" alt="{{ player.player_nickname }}" />
   <h3>{{ player.player_nickname }}</h3>
 </div>
-} } @else {
-@if (Object.keys(team).length > 0) {
+}
+
+} @else { @if (Object.keys(team).length > 0) {
 <div>
   <h2>{{ team.team_name }}</h2>
   <img src="{{ team.team_logo }}" alt="{{ team.team_name }}" />
@@ -27,10 +30,13 @@
 <div>
   @if (Object.keys(team).length > 0) {
   <h2>Players</h2>
+  <h4>{{ error }}</h4>
   @for (player of players; track players.player_id) {
   <div [routerLink]="['/CloudMatch/Player', player.player_id]">
     <img src="{{ player.player_photo }}" alt="{{ player.player_nickname }}" />
     <h3>{{ player.player_nickname }}</h3>
   </div>
+
+
   } }
 </div>

@@ -1,15 +1,16 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { LeagueService } from '../../../../services/league.service';
 import { RouterLink } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Store } from '@ngrx/store';
 import { TeamService } from '../../../../services/team.service';
+import { CalendarComponent } from './calendar/calendar.component';
 
 @Component({
   selector: 'league',
   standalone: true,
-  imports: [RouterLink, MatFormFieldModule, MatSelectModule],
+  imports: [RouterLink, MatFormFieldModule, MatSelectModule, CalendarComponent],
   templateUrl: './league.component.html',
   styleUrl: './league.component.scss',
 })
@@ -77,14 +78,12 @@ export class LeagueComponent implements OnInit {
         this.alert = 'Participation successfully added';
       },
       error: () => {
-        this.alert = 'What?';
+        this.alert = 'This team is already participating in this leagues';
       },
     });
   }
 
-
   parti() {
     console.log(this.participants, this.activeUser);
-    
   }
 }
