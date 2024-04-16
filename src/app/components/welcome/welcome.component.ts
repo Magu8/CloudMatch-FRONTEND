@@ -3,7 +3,7 @@ import { LoginComponent } from "./components/login/login.component";
 import { RegisterComponent } from './components/register/register.component';
 
 @Component({
-    selector: 'app-welcome',
+    selector: 'cloudMatch-welcome',
     standalone: true,
     templateUrl: './welcome.component.html',
     styleUrl: './welcome.component.scss',

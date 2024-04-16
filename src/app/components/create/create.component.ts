@@ -11,12 +11,13 @@ import { UserService } from '../../services/user.service';
 import { Player } from '../../models/player';
 import { Store } from '@ngrx/store';
 import { PlayerService } from '../../services/player.service';
-import { Match } from '../../models/match';
+import { MatchDate } from '../../models/match.date';
 import { MatchService } from '../../services/match.service';
-import { User } from '../../models/user';
+import { UserRole } from '../../models/user.role';
+import { OtherService } from '../../services/other.service';
 
 @Component({
-  selector: 'app-create',
+  selector: 'cloudMatch-create',
   standalone: true,
   imports: [FormsModule, MatFormFieldModule, MatSelectModule],
   templateUrl: './create.component.html',
@@ -27,7 +28,7 @@ export class CreateComponent implements OnInit {
 
   users: any = [];
   leagues: any = [];
-  teams: any = [];
+  participants: any = [];
 
   myTeamId?: any = null;
   selectedLeagueId: number = 0;
@@ -45,7 +46,8 @@ export class CreateComponent implements OnInit {
     private teamService: TeamService,
     private userService: UserService,
     private playerService: PlayerService,
-    private matchService: MatchService
+    private matchService: MatchService,
+    private otherService: OtherService
   ) {}
   private store = inject(Store);
 
@@ -66,17 +68,14 @@ export class CreateComponent implements OnInit {
       this.leagueService.getAllLeagues().subscribe((leaguesData) => {
         this.leagues = leaguesData;
       });
-      this.teamService.getAllTeams().subscribe((teamsData) => {
-        this.teams = teamsData;
-      });
     }
   }
 
-  user: User = {
+  user: UserRole = {
     role: '',
   };
 
-  editUserRole(userRole: User, userId: number) {
+  editUserRole(userRole: UserRole, userId: number) {
     this.userService.editUserRole(userRole, userId).subscribe({
       next: (success: any) => {
         this.error = '';
@@ -160,11 +159,26 @@ export class CreateComponent implements OnInit {
     });
   }
 
-  match: Match = {
+  match: MatchDate = {
     match_date: '',
     match_time: '',
   };
-  createMatchDay(matchBody: Match) {
+
+  getLeagueParticipants(leagueId: number) {
+    this.leagueService.getLeagueParticipants(leagueId).subscribe({
+      next: (successParticipantsData) => {
+        this.error = '';
+        this.participants = successParticipantsData;
+      },
+      error: (fail) => {
+        this.participants = [];
+        this.error = fail.error.message;
+      },
+    });
+  }
+
+  createMatchDay(matchBody: MatchDate) {
+    matchBody.match_time = this.otherService.floatTime(matchBody.match_time);
     this.matchService
       .createMatch(
         matchBody,

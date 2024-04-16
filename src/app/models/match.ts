@@ -1,4 +1,5 @@
 export interface Match {
-  match_date: string;
-  match_time: string;
+  match_id: number;
+  local_team: string;
+  visitor_team: string;
 }

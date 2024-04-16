@@ -17,8 +17,8 @@ export class LoginComponent {
   private store = inject(Store);
 
   login: Login = {
-    email: 'mg@cloudMatch.com',
-    password: 'iamadmin',
+    email: 'arbi@cloudMatch.com',
+    password: 'iamreferee',
   };
 
   loginUserReducer(loginBody: Login) {

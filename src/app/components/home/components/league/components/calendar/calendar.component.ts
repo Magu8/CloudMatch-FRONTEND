@@ -5,7 +5,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { MatchService } from '../../../../../services/match.service';
+import { MatchService } from '../../../../../../services/match.service';
 
 @Component({
   selector: 'calendar',

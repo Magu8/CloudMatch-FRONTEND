@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Login } from '../models/login';
 import { Register } from '../models/register';
-import { User } from '../models/user';
+import { UserRole } from '../models/user.role';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +36,7 @@ export class UserService {
     return this.http.get(getAllUsersUrl, this.httpOptions)
   }
 
-  editUserRole(userRole: User, userId: number){
+  editUserRole(userRole: UserRole, userId: number){
     const editUserRoleUrl = `http://localhost/CloudMatch-BACKEND/php/users_controller/editUserRole.php?user_id=${userId}`;
     const userBody = JSON.stringify(userRole);
     return this.http.put(editUserRoleUrl, userBody, this.httpOptions);

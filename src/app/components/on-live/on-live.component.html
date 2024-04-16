@@ -1,0 +1,44 @@
+@if (activeUser.role === "Referee") {
+
+<h1>{{ onLiveMatch.TIME }}</h1>
+@if (timerOn) {
+<button (click)="timerBtn()">||</button>
+} @else {
+<button (click)="timerBtn()">&gt;</button>
+}
+
+<h2>{{ onLiveMatch.PERIOD }}</h2>
+@if (onLiveMatch.PERIOD === '1') {
+<button (click)="inputBtn('P-')" disabled>&lt;</button>
+<button (click)="inputBtn('P+')">&gt;</button>
+} @else if (onLiveMatch.PERIOD === '4') {
+<button (click)="inputBtn('P-')">&lt;</button>
+<button (click)="inputBtn('P+')" disabled>&gt;</button>
+} @else {
+<button (click)="inputBtn('P-')">&lt;</button>
+<button (click)="inputBtn('P+')">&gt;</button>
+}
+
+<h3>{{ onLiveMatch.local_team }}</h3>
+<h2>{{ onLiveMatch.local_score }}</h2>
+<button (click)="inputBtn('LS+')">+</button>
+<button (click)="inputBtn('LS-')">-</button>
+<h3>{{ onLiveMatch.visitor_team }}</h3>
+<h2>{{ onLiveMatch.visitor_score }}</h2>
+<button (click)="inputBtn('VS+')">+</button>
+<button (click)="inputBtn('VS-')">-</button>
+
+<button (click)="saveMatch(onLiveMatch)">Finish Match</button>
+
+} @else {
+
+<h1>{{ onLiveMatch.TIME }}</h1>
+<h2>{{ onLiveMatch.PERIOD }}</h2>
+
+<h3>{{ onLiveMatch.local_team }}</h3>
+<h2>{{ onLiveMatch.local_score }}</h2>
+<h3>{{ onLiveMatch.visitor_team }}</h3>
+<h2>{{ onLiveMatch.visitor_score }}</h2>
+
+<p>something more goes here</p>
+}

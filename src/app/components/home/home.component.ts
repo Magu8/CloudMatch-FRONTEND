@@ -1,9 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CalendarComponent } from './components/league/calendar/calendar.component';
+import { CalendarComponent } from './components/league/components/calendar/calendar.component';
 import { LeagueComponent } from './components/league/league.component';
 import { PlayerComponent } from './components/player/player.component';
 import { TeamComponent } from './components/team/team.component';
-import { MatchComponent } from './components/match/match.component';
+import { MatchComponent } from './components/league/components/match/match.component';
 import { Store } from '@ngrx/store';
 import { TeamService } from '../../services/team.service';
 import { setMyTeam } from '../../actions/myTeam.actions';

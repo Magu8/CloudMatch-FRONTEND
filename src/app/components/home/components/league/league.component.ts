@@ -5,12 +5,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Store } from '@ngrx/store';
 import { TeamService } from '../../../../services/team.service';
-import { CalendarComponent } from './calendar/calendar.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { MatchComponent } from './components/match/match.component';
 
 @Component({
   selector: 'league',
   standalone: true,
-  imports: [RouterLink, MatFormFieldModule, MatSelectModule, CalendarComponent],
+  imports: [RouterLink, MatFormFieldModule, MatSelectModule, CalendarComponent, MatchComponent],
   templateUrl: './league.component.html',
   styleUrl: './league.component.scss',
 })

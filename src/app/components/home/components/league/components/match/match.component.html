@@ -1,0 +1,14 @@
+@if (match) {
+<div class="match">
+  @if (!matchOnLive) {
+  <h1>MATCH inactive</h1>
+  } @else {
+  <h1 [routerLink]="['/CloudMatch/MatchOnLive']">MATCH ON LIVE</h1>
+  }
+  <div>
+    <h3>{{ match.local_team }}</h3>
+    <h2>VS</h2>
+    <h3>{{ match.visitor_team }}</h3>
+  </div>
+</div>
+}
