@@ -21,14 +21,30 @@
 
 <h3>{{ onLiveMatch.local_team }}</h3>
 <h2>{{ onLiveMatch.local_score }}</h2>
+@if (onLiveMatch.local_score === '0') {
+<button (click)="inputBtn('LS-')" disabled>-</button>
 <button (click)="inputBtn('LS+')">+</button>
+
+} @else {
 <button (click)="inputBtn('LS-')">-</button>
+<button (click)="inputBtn('LS+')">+</button>
+
+}
+
 <h3>{{ onLiveMatch.visitor_team }}</h3>
 <h2>{{ onLiveMatch.visitor_score }}</h2>
+@if(onLiveMatch.visitor_score === '0'){
+<button (click)="inputBtn('VS-')" disabled>-</button>
 <button (click)="inputBtn('VS+')">+</button>
+
+} @else {
 <button (click)="inputBtn('VS-')">-</button>
+<button (click)="inputBtn('VS+')">+</button>
+
+}
 
 <button (click)="saveMatch(onLiveMatch)">Finish Match</button>
+<button (click)="data()">a</button>
 
 } @else {
 

@@ -1,10 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatchService } from '../../services/match.service';
 import { Store } from '@ngrx/store';
 import { MatchScores } from '../../models/match.scores';
 import { InputService } from '../../services/input.service';
-import { interval, Subscription, switchMap } from 'rxjs';
-import { handleTIMER } from '../../actions/timer.actions';
+import { interval, Subscription, switchMap, take } from 'rxjs';
+import { startTIMER, stopTIMER } from '../../actions/timer.actions';
 
 @Component({
   selector: 'cloudMatch-on-live',
@@ -13,7 +13,7 @@ import { handleTIMER } from '../../actions/timer.actions';
   templateUrl: './on-live.component.html',
   styleUrl: './on-live.component.scss',
 })
-export class OnLiveComponent implements OnInit {
+export class OnLiveComponent implements OnInit, OnDestroy {
   constructor(
     private matchService: MatchService,
     private inputService: InputService
@@ -27,6 +27,7 @@ export class OnLiveComponent implements OnInit {
 
   timerOnCheck: any = undefined;
   timerOn: boolean = false;
+  timerState: boolean = false;
 
   matchScore: MatchScores = {
     match_id: 0,
@@ -37,18 +38,22 @@ export class OnLiveComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    this.timerReducer();
+    if (this.timerState) {
+      this.timerBtn();
+    }
+    this.store.select('activeUser').subscribe((user: any) => {
+      this.activeUser = user;
+    });
     this.matchService.getMatchOnLive().subscribe((onLiveMatchData) => {
       this.onLiveMatch = onLiveMatchData;
-      this.store.select('activeUser').subscribe((user: any) => {
-        this.activeUser = user;
-        this.store.select('timer').subscribe((timer) => {
-          this.timerOnCheck = timer;
-          if (this.timerOnCheck) {
-            this.timerBtn();
-          }
-        });
-      });
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
   }
 
   saveMatch(saving: any) {
@@ -81,16 +86,29 @@ export class OnLiveComponent implements OnInit {
     });
   }
 
+  timerReducer() {
+    this.store
+      .select('timer')
+      .pipe(take(1))
+      .subscribe((data) => {
+        this.timerState = data;
+      });
+  }
+
+  data(){
+    console.log(this.onLiveMatch);
+    
+  }
   timerBtn() {
     if (this.timerOn) {
       this.timerOn = false;
-      this.store.dispatch(handleTIMER());
+      this.store.dispatch(stopTIMER());
       if (this.timerSubscription) {
         this.timerSubscription.unsubscribe();
       }
     } else {
       this.timerOn = true;
-      this.store.dispatch(handleTIMER());
+      this.store.dispatch(startTIMER());
       this.timerSubscription = interval(1000)
         .pipe(switchMap(() => this.matchService.TIME()))
         .subscribe(() => {

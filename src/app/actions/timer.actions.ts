@@ -1,4 +1,5 @@
 import { createAction } from '@ngrx/store';
 
-export const handleTIMER = createAction('[onLiveComponent] start/stop timer');
+export const startTIMER = createAction('[onLiveComponent] startTimer');
+export const stopTIMER = createAction('[onLiveComponent] stopTimer');
 
