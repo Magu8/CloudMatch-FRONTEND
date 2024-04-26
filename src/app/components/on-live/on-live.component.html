@@ -8,43 +8,18 @@
 }
 
 <h2>{{ onLiveMatch.PERIOD }}</h2>
-@if (onLiveMatch.PERIOD === '1') {
-<button (click)="inputBtn('P-')" disabled>&lt;</button>
-<button (click)="inputBtn('P+')">&gt;</button>
-} @else if (onLiveMatch.PERIOD === '4') {
-<button (click)="inputBtn('P-')">&lt;</button>
-<button (click)="inputBtn('P+')" disabled>&gt;</button>
-} @else {
-<button (click)="inputBtn('P-')">&lt;</button>
-<button (click)="inputBtn('P+')">&gt;</button>
-}
 
 <h3>{{ onLiveMatch.local_team }}</h3>
 <h2>{{ onLiveMatch.local_score }}</h2>
-@if (onLiveMatch.local_score === '0') {
-<button (click)="inputBtn('LS-')" disabled>-</button>
-<button (click)="inputBtn('LS+')">+</button>
-
-} @else {
-<button (click)="inputBtn('LS-')">-</button>
-<button (click)="inputBtn('LS+')">+</button>
-
-}
 
 <h3>{{ onLiveMatch.visitor_team }}</h3>
 <h2>{{ onLiveMatch.visitor_score }}</h2>
-@if(onLiveMatch.visitor_score === '0'){
-<button (click)="inputBtn('VS-')" disabled>-</button>
-<button (click)="inputBtn('VS+')">+</button>
 
-} @else {
-<button (click)="inputBtn('VS-')">-</button>
-<button (click)="inputBtn('VS+')">+</button>
+<button (click)="scoreBtn(1)">1</button><button (click)="scoreBtn(2)">2</button><button (click)="scoreBtn(3)" >3</button>
+<button>FOUL</button>
 
-}
 
 <button (click)="saveMatch(onLiveMatch)">Finish Match</button>
-<button (click)="data()">a</button>
 
 } @else {
 
@@ -57,4 +32,7 @@
 <h2>{{ onLiveMatch.visitor_score }}</h2>
 
 <p>something more goes here</p>
+
 }
+
+<cloudMatch-player-bench [localPlayers]="localPlayers" [visitorPlayers]="visitorPlayers" (sendPlayerVorL)="scorePlayer($event)"></cloudMatch-player-bench>

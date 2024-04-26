@@ -5,29 +5,40 @@ import { MatchScores } from '../../models/match.scores';
 import { InputService } from '../../services/input.service';
 import { interval, Subscription, switchMap, take } from 'rxjs';
 import { startTIMER, stopTIMER } from '../../actions/timer.actions';
+import { TeamService } from '../../services/team.service';
+import { PlayerBenchComponent } from './player-bench/player-bench.component';
 
 @Component({
   selector: 'cloudMatch-on-live',
   standalone: true,
-  imports: [],
+  imports: [PlayerBenchComponent],
   templateUrl: './on-live.component.html',
   styleUrl: './on-live.component.scss',
 })
 export class OnLiveComponent implements OnInit, OnDestroy {
   constructor(
     private matchService: MatchService,
-    private inputService: InputService
+    private inputService: InputService,
+    private teamService: TeamService
   ) {}
 
   private store = inject(Store);
   private timerSubscription: Subscription | undefined;
 
   onLiveMatch?: any = null;
+
   activeUser: any = null;
 
-  timerOnCheck: any = undefined;
+  matchPlayers: any = null;
+
   timerOn: boolean = false;
   timerState: boolean = false;
+
+  player: any = null;
+  score: string = '';
+
+  localPlayers: any = null;
+  visitorPlayers: any = null;
 
   matchScore: MatchScores = {
     match_id: 0,
@@ -47,6 +58,16 @@ export class OnLiveComponent implements OnInit, OnDestroy {
     });
     this.matchService.getMatchOnLive().subscribe((onLiveMatchData) => {
       this.onLiveMatch = onLiveMatchData;
+      this.teamService
+        .getTeamPlayers(this.onLiveMatch.local_id)
+        .subscribe((localData) => {
+          this.localPlayers = localData;
+        });
+      this.teamService
+        .getTeamPlayers(this.onLiveMatch.visitor_id)
+        .subscribe((visitorData) => {
+          this.visitorPlayers = visitorData;
+        });
     });
   }
 
@@ -78,12 +99,16 @@ export class OnLiveComponent implements OnInit, OnDestroy {
     });
   }
 
-  inputBtn(type: string) {
-    this.inputService.input(type).subscribe(() => {
+  scoreBtn(score: number) {
+    this.inputService.SCORE(score, this.player).subscribe(() => {
       this.matchService.getMatchOnLive().subscribe((onLiveMatchData) => {
         this.onLiveMatch = onLiveMatchData;
       });
     });
+  }
+
+  scorePlayer(data: { id: any; lorv: string }) {
+    this.player = data;
   }
 
   timerReducer() {
@@ -95,10 +120,6 @@ export class OnLiveComponent implements OnInit, OnDestroy {
       });
   }
 
-  data(){
-    console.log(this.onLiveMatch);
-    
-  }
   timerBtn() {
     if (this.timerOn) {
       this.timerOn = false;
@@ -110,10 +131,28 @@ export class OnLiveComponent implements OnInit, OnDestroy {
       this.timerOn = true;
       this.store.dispatch(startTIMER());
       this.timerSubscription = interval(1000)
-        .pipe(switchMap(() => this.matchService.TIME()))
+        .pipe(switchMap(() => this.inputService.TIME()))
         .subscribe(() => {
           this.matchService.getMatchOnLive().subscribe((onLiveMatchData) => {
             this.onLiveMatch = onLiveMatchData;
+            if (this.onLiveMatch.TIME === '00:00') {
+              this.timerOn = false;
+              this.store.dispatch(stopTIMER());
+              if (this.timerSubscription) {
+                this.timerSubscription.unsubscribe();
+              }
+              setTimeout(() => {
+                this.inputService.resetTIME().subscribe(() => {
+                  this.inputService.PERIOD().subscribe(() => {
+                    this.matchService
+                      .getMatchOnLive()
+                      .subscribe((onLiveMatchData) => {
+                        this.onLiveMatch = onLiveMatchData;
+                      });
+                  });
+                });
+              }, 2000);
+            }
           });
         });
     }

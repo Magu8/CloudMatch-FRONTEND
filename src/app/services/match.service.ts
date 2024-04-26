@@ -60,16 +60,4 @@ export class MatchService {
       'http://localhost/CloudMatch-BACKEND/php/redis/match/resetMatch.php';
     return this.http.put(resetMatchUrl, this.httpOptions);
   }
-
-  TIME() {
-    const TIMEurl =
-      'http://localhost/CloudMatch-BACKEND/php/redis/match/TIME.php';
-    return this.http.put(TIMEurl, this.httpOptions);
-  }
-
-  resetTIME() {
-    const resetTIMEurl =
-      'http://localhost/CloudMatch-BACKEND/php/redis/match/resetTIME.php';
-    return this.http.put(resetTIMEurl, this.httpOptions);
-  }
 }

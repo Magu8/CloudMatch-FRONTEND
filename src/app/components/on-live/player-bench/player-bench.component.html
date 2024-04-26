@@ -1,0 +1,12 @@
+
+<br>
+
+@for (lPlayer of localPlayers; track localPlayers.player_id) {
+<button (click)="btn(lPlayer.player_id, 'local')">{{ lPlayer.player_number }} {{ lPlayer.player_nickname }}</button>
+}
+
+<br>
+
+@for (vPlayer of visitorPlayers; track visitorPlayers.player_id) {
+    <button (click)="btn(vPlayer.player_id, 'visitor')">{{ vPlayer.player_number }} {{ vPlayer.player_nickname }}</button>
+    }
