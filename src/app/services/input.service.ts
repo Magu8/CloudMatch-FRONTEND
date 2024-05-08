@@ -12,15 +12,26 @@ export class InputService {
   };
   constructor(private http: HttpClient) {}
 
-  SCORE(score: number, playerData: { id: any; lorv: string }) {
+  SCORE(score: number, playerData: { id: number; lorv: string }, match: any) {
     if (playerData.lorv === 'local') {
-      const addLSUrl = `http://localhost/CloudMatch-BACKEND/php/redis/input/addLocalScore.php?score=${score}`;
+      const addLSUrl = `http://localhost/CloudMatch-BACKEND/php/redis/input/addLocalSCORE.php?score=${score}&player=${playerData.id}&match=${match.match_id}`;
       return this.http.post(addLSUrl, this.httpOptions);
     } else {
-      const addVSUrl = `http://localhost/CloudMatch-BACKEND/php/redis/input/addVisitorScore.php?score=${score}`;
+      const addVSUrl = `http://localhost/CloudMatch-BACKEND/php/redis/input/addVisitorSCORE.php?score=${score}&player=${playerData.id}&match=${match.match_id}`;
       return this.http.post(addVSUrl, this.httpOptions);
     }
   }
+
+  FOUL(playerData: { id: number; lorv: string }, match: any) {
+    if (playerData.lorv === 'local') {
+      const addLFUrl = `http://localhost/CloudMatch-BACKEND/php/redis/input/addLocalFOUL.php?player=${playerData.id}&match=${match.match_id}`;
+      return this.http.post(addLFUrl, this.httpOptions);
+    } else {
+      const addVFUrl = `http://localhost/CloudMatch-BACKEND/php/redis/input/addVisitorFOUL.php?player=${playerData.id}&match=${match.match_id}`;
+      return this.http.post(addVFUrl, this.httpOptions);
+    }
+  }
+
   PERIOD() {
     const PERIODUrl =
       'http://localhost/CloudMatch-BACKEND/php/redis/input/PERIOD.php';
@@ -28,7 +39,8 @@ export class InputService {
   }
 
   resetPERIOD() {
-    const resetPERIODurl = 'http://localhost/CloudMatch-BACKEND/php/redis/input/resetPERIOD.php';
+    const resetPERIODurl =
+      'http://localhost/CloudMatch-BACKEND/php/redis/input/resetPERIOD.php';
     return this.http.put(resetPERIODurl, this.httpOptions);
   }
 

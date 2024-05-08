@@ -9,17 +9,24 @@
 
 <h2>{{ onLiveMatch.PERIOD }}</h2>
 
-<h3>{{ onLiveMatch.local_team }}</h3>
+<h1>{{ onLiveMatch.local_team }}</h1>
+<h2>SCORE</h2>
 <h2>{{ onLiveMatch.local_score }}</h2>
+<h2>FOULS</h2>
+<h4>{{onLiveMatch.local_fouls}}</h4>
 
-<h3>{{ onLiveMatch.visitor_team }}</h3>
+<h1>{{ onLiveMatch.visitor_team }}</h1>
+<h2>SCORE</h2>
 <h2>{{ onLiveMatch.visitor_score }}</h2>
+<h2>FOULS</h2>
+<h4>{{onLiveMatch.visitor_fouls}}</h4>
 
 <button (click)="scoreBtn(1)">1</button><button (click)="scoreBtn(2)">2</button><button (click)="scoreBtn(3)" >3</button>
-<button>FOUL</button>
+<button (click)="foulBtn()">FOUL</button>
 
 
 <button (click)="saveMatch(onLiveMatch)">Finish Match</button>
+<h4>{{error}}</h4>
 
 } @else {
 
@@ -31,8 +38,6 @@
 <h3>{{ onLiveMatch.visitor_team }}</h3>
 <h2>{{ onLiveMatch.visitor_score }}</h2>
 
-<p>something more goes here</p>
-
 }
 
-<cloudMatch-player-bench [localPlayers]="localPlayers" [visitorPlayers]="visitorPlayers" (sendPlayerVorL)="scorePlayer($event)"></cloudMatch-player-bench>
+<cloudMatch-player-bench [activeUser]="activeUser" [benchLocal]="localPlayers" [benchVisitor]="visitorPlayers" (sendPlayerVorL)="scoreOrFoulPlayer($event)"></cloudMatch-player-bench>

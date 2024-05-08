@@ -60,4 +60,5 @@ export class MatchService {
       'http://localhost/CloudMatch-BACKEND/php/redis/match/resetMatch.php';
     return this.http.put(resetMatchUrl, this.httpOptions);
   }
+  
 }

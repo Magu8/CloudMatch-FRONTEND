@@ -45,4 +45,11 @@ export class LeagueService {
       'http://localhost/CloudMatch-BACKEND/php/leagues_controller/getAllLeagues.php';
     return this.http.get(getAllLeaguesUrl, this.httpOptions);
   }
+
+
+  addLeagueScore(leagueId: number, teamId: number) {
+    const addLeagueScoreUrl = `http://localhost/CloudMatch-BACKEND/php/leagues_controller/addLeagueScore?league_id=${leagueId}&participant_id=${teamId}`;
+    return this.http.put(addLeagueScoreUrl, this.httpOptions)
+  }
+
 }

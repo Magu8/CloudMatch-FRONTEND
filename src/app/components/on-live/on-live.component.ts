@@ -7,6 +7,7 @@ import { interval, Subscription, switchMap, take } from 'rxjs';
 import { startTIMER, stopTIMER } from '../../actions/timer.actions';
 import { TeamService } from '../../services/team.service';
 import { PlayerBenchComponent } from './player-bench/player-bench.component';
+import { LeagueService } from '../../services/league.service';
 
 @Component({
   selector: 'cloudMatch-on-live',
@@ -19,7 +20,8 @@ export class OnLiveComponent implements OnInit, OnDestroy {
   constructor(
     private matchService: MatchService,
     private inputService: InputService,
-    private teamService: TeamService
+    private teamService: TeamService,
+    private leagueService: LeagueService
   ) {}
 
   private store = inject(Store);
@@ -36,9 +38,15 @@ export class OnLiveComponent implements OnInit, OnDestroy {
 
   player: any = null;
   score: string = '';
+  foul: boolean = false; //TODO
 
   localPlayers: any = null;
   visitorPlayers: any = null;
+
+  winnerTeam: any = null;
+
+  drawCheck: boolean = false;
+  error: string = '';
 
   matchScore: MatchScores = {
     match_id: 0,
@@ -78,36 +86,79 @@ export class OnLiveComponent implements OnInit, OnDestroy {
   }
 
   saveMatch(saving: any) {
-    const { local_score, local_fouls, visitor_fouls, visitor_score, match_id } =
-      saving;
-    this.matchScore = {
+    this.drawCheck = false;
+    const {
       local_score,
       local_fouls,
       visitor_fouls,
       visitor_score,
       match_id,
-    };
-    this.matchService.saveMatch(saving).subscribe({
-      next: () => {
-        this.matchService.resetMatch().subscribe((success) => {
-          console.log(success);
-        });
-      },
-      error: (error) => {
-        console.error(error);
-      },
-    });
+      league_id,
+    } = saving;
+
+    if (local_score > visitor_score) {
+      this.winnerTeam = saving.local_id;
+    } else if (local_score < visitor_score) {
+      this.winnerTeam = saving.visitor_id;
+    } else {
+      this.drawCheck = true;
+    }
+
+    if (this.drawCheck) {
+      this.error = 'No draws allowed';
+    } else {
+      this.matchScore = {
+        local_score,
+        local_fouls,
+        visitor_fouls,
+        visitor_score,
+        match_id,
+      };
+      this.matchService.saveMatch(saving).subscribe({
+        next: () => {
+          this.leagueService
+            .addLeagueScore(league_id, this.winnerTeam)
+            .subscribe((success) => {
+              console.log(success);
+            });
+          this.matchService.resetMatch().subscribe((success) => {
+            localStorage.removeItem('benchLocal');
+            localStorage.removeItem('inGameLocal');
+            localStorage.removeItem('benchVisitor');
+            localStorage.removeItem('inGameVisitor')
+            console.log(success);
+          });
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
+    }
+  }
+
+  aa() {
+    console.log(this.onLiveMatch);
   }
 
   scoreBtn(score: number) {
-    this.inputService.SCORE(score, this.player).subscribe(() => {
+    this.inputService
+      .SCORE(score, this.player, this.onLiveMatch)
+      .subscribe(() => {
+        this.matchService.getMatchOnLive().subscribe((onLiveMatchData) => {
+          this.onLiveMatch = onLiveMatchData;
+        });
+      });
+  }
+
+  foulBtn() {
+    this.inputService.FOUL(this.player, this.onLiveMatch).subscribe(() => {
       this.matchService.getMatchOnLive().subscribe((onLiveMatchData) => {
         this.onLiveMatch = onLiveMatchData;
       });
     });
   }
 
-  scorePlayer(data: { id: any; lorv: string }) {
+  scoreOrFoulPlayer(data: { id: number; lorv: string }) {
     this.player = data;
   }
 
