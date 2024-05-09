@@ -26,9 +26,6 @@ export class PlayerBenchComponent implements OnInit {
   inGameLocal: any = [];
   inGameVisitor: any = [];
 
-  benchLocalStorage: any = null;
-  benchVisitorStorage: any = null;
-
   ngOnInit(): void {
     const storageLocal = localStorage.getItem('inGameLocal');
     if (storageLocal) {
@@ -49,12 +46,9 @@ export class PlayerBenchComponent implements OnInit {
     }
   }
 
+  benchLocalStorage: any = null;
+  benchVisitorStorage: any = null;
 
-  
-
-  thisbtn() {
-    console.log(this.benchLocalStorage);
-  }
 
   @Output() sendPlayerVorL = new EventEmitter<{ id: any; lorv: string }>();
 
@@ -84,7 +78,37 @@ export class PlayerBenchComponent implements OnInit {
       );
     }
 
-    
+    const whatsInLocal = localStorage.getItem('benchLocal');
+    const whatsInVisitor = localStorage.getItem('benchVisitor');
+
+    if (whatsInLocal) {
+      localStorage.setItem(
+        'benchLocal',
+        JSON.stringify(this.benchLocalStorage)
+      );
+    } else {
+      localStorage.setItem('benchLocal', JSON.stringify(this.benchLocal));
+      const localCheck = localStorage.getItem('benchLocal');
+      if (localCheck) {
+        this.benchLocalStorage = JSON.parse(localCheck);
+      }
+    }
+
+    if (whatsInVisitor) {
+      localStorage.setItem(
+        'benchVisitor',
+        JSON.stringify(this.benchVisitorStorage)
+      );
+    } else {
+      localStorage.setItem('benchVisitor', JSON.stringify(this.benchVisitor));
+      const visitorCheck = localStorage.getItem('benchVisitor');
+      if (visitorCheck) {
+        this.benchVisitorStorage = JSON.parse(visitorCheck);
+
+      }
+      
+    }
+
     localStorage.setItem('inGameLocal', JSON.stringify(this.inGameLocal));
     localStorage.setItem('inGameVisitor', JSON.stringify(this.inGameVisitor));
   }

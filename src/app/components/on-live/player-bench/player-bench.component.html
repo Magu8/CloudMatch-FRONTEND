@@ -53,7 +53,7 @@
 >
   @for (lPlayer of benchLocalStorage ? benchLocalStorage : benchLocal; track
   benchLocalStorage ? benchLocalStorage.player_id : benchLocal.player_id) {
-  <button (click)="btn(lPlayer.player_id, 'local')" cdkDrag>
+  <button cdkDrag>
     {{ lPlayer.player_number }} {{ lPlayer.player_nickname }}
   </button>
   }
@@ -72,13 +72,12 @@
   @for (vPlayer of benchVisitorStorage ? benchVisitorStorage : benchVisitor ;
   track benchVisitorStorage ? benchVisitorStorage.player_id :
   benchVisitor.player_id) {
-  <button (click)="btn(vPlayer.player_id, 'visitor')" cdkDrag>
+  <button cdkDrag>
     {{ vPlayer.player_number }} {{ vPlayer.player_nickname }}
   </button>
   }
 </div>
 
-<button (click)="thisbtn()">aaaa</button>
 
 } @else {
 

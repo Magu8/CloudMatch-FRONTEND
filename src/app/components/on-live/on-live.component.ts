@@ -38,7 +38,7 @@ export class OnLiveComponent implements OnInit, OnDestroy {
 
   player: any = null;
   score: string = '';
-  foul: boolean = false; //TODO
+  foul: boolean = false; //TODO, asign foul to player through redis
 
   localPlayers: any = null;
   visitorPlayers: any = null;
@@ -136,9 +136,7 @@ export class OnLiveComponent implements OnInit, OnDestroy {
     }
   }
 
-  aa() {
-    console.log(this.onLiveMatch);
-  }
+
 
   scoreBtn(score: number) {
     this.inputService

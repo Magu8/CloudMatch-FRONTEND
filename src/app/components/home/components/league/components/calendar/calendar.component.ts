@@ -19,18 +19,18 @@ export class CalendarComponent implements OnChanges {
 
   @Input() leagueId: any;
 
-  matches?: any = undefined;
+  matches?: any = null;
   error: string = '';
 
   ngOnChanges(): void {
-    if (this.leagueId !== undefined) {
+    if (this.leagueId) {
       this.matchService.matchCalendar(this.leagueId).subscribe({
         next: (successData) => {
           this.error = '';
           this.matches = successData;
         },
         error: (fail) => {
-          this.matches = undefined;
+          this.matches = null;
           this.error = fail.error.message;
         },
       });

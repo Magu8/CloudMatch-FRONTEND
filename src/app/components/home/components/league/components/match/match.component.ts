@@ -22,6 +22,7 @@ export class MatchComponent implements OnChanges {
   actualTime: string = '';
   match: any = null;
   matchOnLive: boolean = false;
+  matchFinished: boolean = false;
 
   matchToRedis: Match = {
     league_id: 0,
@@ -37,6 +38,9 @@ export class MatchComponent implements OnChanges {
     this.actualTime = this.otherService.getActualTime();
     this.matchService.getMatchDay(this.actualDay, this.leagueId).subscribe({
       next: (successData: any) => {
+        this.matchFinished = false
+        
+        
         this.match = successData;
 
         this.matchToRedis.league_id = successData.league_id;
@@ -52,6 +56,12 @@ export class MatchComponent implements OnChanges {
         
         if (actualTime[0] >= matchTime[0]) {
           this.matchOnLive = true;
+
+        }
+        if (successData.finished === 1) {
+          this.matchOnLive = false;
+          this.matchFinished = true
+    
         }
       },
       error: () => {
