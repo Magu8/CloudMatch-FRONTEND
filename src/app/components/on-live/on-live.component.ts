@@ -44,6 +44,7 @@ export class OnLiveComponent implements OnInit, OnDestroy {
   visitorPlayers: any = null;
 
   winnerTeam: any = null;
+  winnerScore: number = 0;
 
   drawCheck: boolean = false;
   error: string = '';
@@ -98,8 +99,10 @@ export class OnLiveComponent implements OnInit, OnDestroy {
 
     if (local_score > visitor_score) {
       this.winnerTeam = saving.local_id;
+      this.winnerScore = local_score
     } else if (local_score < visitor_score) {
       this.winnerTeam = saving.visitor_id;
+      this.winnerScore = visitor_score
     } else {
       this.drawCheck = true;
     }
@@ -113,11 +116,13 @@ export class OnLiveComponent implements OnInit, OnDestroy {
         visitor_fouls,
         visitor_score,
         match_id,
-      };
+      }
+    
+      
       this.matchService.saveMatch(saving).subscribe({
         next: () => {
           this.leagueService
-            .addLeagueScore(league_id, this.winnerTeam)
+            .addLeagueScore(league_id, this.winnerTeam, saving.match_date, this.winnerScore)
             .subscribe((success) => {
               console.log(success);
             });

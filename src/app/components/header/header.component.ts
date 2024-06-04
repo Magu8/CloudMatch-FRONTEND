@@ -3,6 +3,9 @@ import { HomeComponent } from '../home/home.component';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { logOutActiveUser } from '../../actions/activeUser.actions';
+import { LeagueService } from '../../services/league.service';
+import { OtherService } from '../../services/other.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'cloudMatch-header',
@@ -12,7 +15,11 @@ import { logOutActiveUser } from '../../actions/activeUser.actions';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private leagueService: LeagueService,
+    private otherService: OtherService
+  ) {}
   private store = inject(Store);
 
   activeUser: any = null;
@@ -25,10 +32,13 @@ export class HeaderComponent implements OnInit {
         this.router.navigate(['']);
       }
     });
-  }
-
-  getAct() {
-    console.log(this.activeUser);
+    const actualDay = this.otherService.getActualDay();
+    this.leagueService.finishLeague(actualDay).subscribe((response) => {
+      if (response) {
+        console.log(response);
+        
+      }
+    })
   }
 
   logOut() {

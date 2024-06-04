@@ -7,6 +7,7 @@ import { MatchComponent } from './components/league/components/match/match.compo
 import { Store } from '@ngrx/store';
 import { TeamService } from '../../services/team.service';
 import { setMyTeam } from '../../actions/myTeam.actions';
+import { SearchComponent } from './components/search/search.component';
 
 @Component({
   selector: 'home',
@@ -16,6 +17,7 @@ import { setMyTeam } from '../../actions/myTeam.actions';
     LeagueComponent,
     TeamComponent,
     PlayerComponent,
+    SearchComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

@@ -83,8 +83,4 @@ export class LeagueComponent implements OnInit {
       },
     });
   }
-
-  parti() {
-    console.log(this.participants, this.activeUser);
-  }
 }

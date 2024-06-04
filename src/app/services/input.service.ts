@@ -14,45 +14,45 @@ export class InputService {
 
   SCORE(score: number, playerData: { id: number; lorv: string }, match: any) {
     if (playerData.lorv === 'local') {
-      const addLSUrl = `http://localhost/CloudMatch-BACKEND/php/redis/input/addLocalSCORE.php?score=${score}&player=${playerData.id}&match=${match.match_id}`;
+      const addLSUrl = `http://localhost/CloudMatch/CloudMatch-BACKEND/php/redis/input/addLocalSCORE.php?score=${score}&player=${playerData.id}&match=${match.match_id}`;
       return this.http.post(addLSUrl, this.httpOptions);
     } else {
-      const addVSUrl = `http://localhost/CloudMatch-BACKEND/php/redis/input/addVisitorSCORE.php?score=${score}&player=${playerData.id}&match=${match.match_id}`;
+      const addVSUrl = `http://localhost/CloudMatch/CloudMatch-BACKEND/php/redis/input/addVisitorSCORE.php?score=${score}&player=${playerData.id}&match=${match.match_id}`;
       return this.http.post(addVSUrl, this.httpOptions);
     }
   }
 
   FOUL(playerData: { id: number; lorv: string }, match: any) {
     if (playerData.lorv === 'local') {
-      const addLFUrl = `http://localhost/CloudMatch-BACKEND/php/redis/input/addLocalFOUL.php?player=${playerData.id}&match=${match.match_id}`;
+      const addLFUrl = `http://localhost/CloudMatch/CloudMatch-BACKEND/php/redis/input/addLocalFOUL.php?player=${playerData.id}&match=${match.match_id}`;
       return this.http.post(addLFUrl, this.httpOptions);
     } else {
-      const addVFUrl = `http://localhost/CloudMatch-BACKEND/php/redis/input/addVisitorFOUL.php?player=${playerData.id}&match=${match.match_id}`;
+      const addVFUrl = `http://localhost/CloudMatch/CloudMatch-BACKEND/php/redis/input/addVisitorFOUL.php?player=${playerData.id}&match=${match.match_id}`;
       return this.http.post(addVFUrl, this.httpOptions);
     }
   }
 
   PERIOD() {
     const PERIODUrl =
-      'http://localhost/CloudMatch-BACKEND/php/redis/input/PERIOD.php';
+      'http://localhost/CloudMatch/CloudMatch-BACKEND/php/redis/input/PERIOD.php';
     return this.http.post(PERIODUrl, this.httpOptions);
   }
 
   resetPERIOD() {
     const resetPERIODurl =
-      'http://localhost/CloudMatch-BACKEND/php/redis/input/resetPERIOD.php';
+      'http://localhost/CloudMatch/CloudMatch-BACKEND/php/redis/input/resetPERIOD.php';
     return this.http.put(resetPERIODurl, this.httpOptions);
   }
 
   TIME() {
     const TIMEurl =
-      'http://localhost/CloudMatch-BACKEND/php/redis/input/TIME.php';
+      'http://localhost/CloudMatch/CloudMatch-BACKEND/php/redis/input/TIME.php';
     return this.http.put(TIMEurl, this.httpOptions);
   }
 
   resetTIME() {
     const resetTIMEurl =
-      'http://localhost/CloudMatch-BACKEND/php/redis/input/resetTIME.php';
+      'http://localhost/CloudMatch/CloudMatch-BACKEND/php/redis/input/resetTIME.php';
     return this.http.put(resetTIMEurl, this.httpOptions);
   }
 }

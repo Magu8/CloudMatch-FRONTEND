@@ -15,12 +15,12 @@ import { MatchDate } from '../../models/match.date';
 import { MatchService } from '../../services/match.service';
 import { UserRole } from '../../models/user.role';
 import { OtherService } from '../../services/other.service';
-
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'cloudMatch-create',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatSelectModule],
+  imports: [FormsModule, MatFormFieldModule, MatSelectModule, CommonModule],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss',
 })
@@ -29,6 +29,8 @@ export class CreateComponent implements OnInit {
 
   users: any = [];
   leagues: any = [];
+
+
   participants: any = [];
 
   myTeamId?: any = null;
@@ -90,21 +92,30 @@ export class CreateComponent implements OnInit {
   }
 
   league: League = {
+    league_logo: '', //TODO create a league_logo
     league_name: '',
     start_date: '',
     end_date: '',
   };
+
+ 
+
   createLeague(leagueBody: League) {
+
     this.leagueService.createLeague(leagueBody).subscribe({
       next: (success: any) => {
         this.error = '';
         this.alert = success.message;
+        console.log(success);
+        
       },
       error: (fail: any) => {
         this.alert = '';
         if (fail.error.message === 'Invalid dates') {
           this.error = fail.error.message;
         } else {
+          console.log(fail);
+          
           this.error = fail.error.message;
         }
       },
@@ -113,7 +124,7 @@ export class CreateComponent implements OnInit {
 
   team: Team = {
     team_name: '',
-    team_logo: '',
+    team_logo: '', //TODO create a team_logo
     team_delegate: 0,
   };
   createTeam(teamBody: Team) {
@@ -138,7 +149,7 @@ export class CreateComponent implements OnInit {
     player_name: '',
     player_surname: '',
     player_nickname: '',
-    player_photo: '',
+    player_photo: '../../../assets/player_image.png',
     age: 0,
   };
   createPlayer(playerBody: Player) {
@@ -203,4 +214,6 @@ export class CreateComponent implements OnInit {
         },
       });
   }
+
+
 }

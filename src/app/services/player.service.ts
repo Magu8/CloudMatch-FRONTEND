@@ -15,13 +15,13 @@ export class PlayerService {
   constructor(private http: HttpClient) {}
 
   createPlayer(player: Player, teamId: number) {
-    const createPlayerUrl = `http://localhost/CloudMatch-BACKEND/php/players_controller/createPlayer.php?team_id=${teamId}`;
+    const createPlayerUrl = `http://localhost/CloudMatch/CloudMatch-BACKEND/php/players_controller/createPlayer.php?team_id=${teamId}`;
     const playerBody = JSON.stringify(player);
     return this.http.post(createPlayerUrl, playerBody, this.httpOptions);
   }
 
   getPlayer(playerId: number) {
-    const getPlayerUrl = `http://localhost/CloudMatch-BACKEND/php/players_controller/getPlayer.php?player_id=${playerId}`;
+    const getPlayerUrl = `http://localhost/CloudMatch/CloudMatch-BACKEND/php/players_controller/getPlayer.php?player_id=${playerId}`;
     return this.http.get(getPlayerUrl, this.httpOptions);
   }
 

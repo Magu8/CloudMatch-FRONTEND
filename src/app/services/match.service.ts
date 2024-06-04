@@ -20,44 +20,44 @@ export class MatchService {
     visitorId: number,
     refereeId: number
   ) {
-    const createMatchUrl = `http://localhost/CloudMatch-BACKEND/php/match_controller/createMatch.php?league_id=${leagueId}&referee_id=${refereeId}&local_id=${localId}&visitor_id=${visitorId}`;
+    const createMatchUrl = `http://localhost/CloudMatch/CloudMatch-BACKEND/php/match_controller/createMatch.php?league_id=${leagueId}&referee_id=${refereeId}&local_id=${localId}&visitor_id=${visitorId}`;
     const matchDateBody = JSON.stringify(match);
     return this.http.post(createMatchUrl, matchDateBody, this.httpOptions);
   }
 
   matchCalendar(leagueId: number) {
-    const matchCalendarUrl = `http://localhost/CloudMatch-BACKEND/php/match_controller/matchCalendar.php?league_id=${leagueId}`;
+    const matchCalendarUrl = `http://localhost/CloudMatch/CloudMatch-BACKEND/php/match_controller/matchCalendar.php?league_id=${leagueId}`;
     return this.http.get(matchCalendarUrl, this.httpOptions);
   }
 
   getMatchDay(matchDate: string, leagueId: number) {
-    const getMatchDayUrl = `http://localhost/CloudMatch-BACKEND/php/match_controller/getDayMatch.php?league=${leagueId}&match_date=${matchDate}`;
+    const getMatchDayUrl = `http://localhost/CloudMatch/CloudMatch-BACKEND/php/match_controller/getDayMatch.php?league=${leagueId}&match_date=${matchDate}`;
     return this.http.get(getMatchDayUrl, this.httpOptions);
   }
 
   setMatchOnLive(matchBody: Match) {
     const setMatchOnLiveUrl =
-      'http://localhost/CloudMatch-BACKEND/php/redis/match/setMatchOnLive.php';
+      'http://localhost/CloudMatch/CloudMatch-BACKEND/php/redis/match/setMatchOnLive.php';
     const matchDateBody = JSON.stringify(matchBody);
     return this.http.post(setMatchOnLiveUrl, matchDateBody, this.httpOptions);
   }
 
   getMatchOnLive() {
     const getMatchOnLive =
-      'http://localhost/CloudMatch-BACKEND/php/redis/match/getMatchOnLive.php';
+      'http://localhost/CloudMatch/CloudMatch-BACKEND/php/redis/match/getMatchOnLive.php';
     return this.http.get(getMatchOnLive, this.httpOptions);
   }
 
   saveMatch(matchBody: MatchScores) {
     const saveMatchUrl =
-      'http://localhost/CloudMatch-BACKEND/php/redis/match/saveMatch.php';
+      'http://localhost/CloudMatch/CloudMatch-BACKEND/php/redis/match/saveMatch.php';
     const matchScoreBody = JSON.stringify(matchBody);
     return this.http.put(saveMatchUrl, matchScoreBody, this.httpOptions);
   }
 
   resetMatch() {
     const resetMatchUrl =
-      'http://localhost/CloudMatch-BACKEND/php/redis/match/resetMatch.php';
+      'http://localhost/CloudMatch/CloudMatch-BACKEND/php/redis/match/resetMatch.php';
     return this.http.put(resetMatchUrl, this.httpOptions);
   }
   

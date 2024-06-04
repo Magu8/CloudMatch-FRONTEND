@@ -18,6 +18,56 @@
 </div>
 }
 
+<div class="w-100">
+  <div class="card">
+    <div class="card-body">
+      <!-- Title -->
+      <h5 class="card-title">Graph</h5>
+      <!-- Chart -->
+      <highcharts-chart
+        [Highcharts]="myGraph"
+        [options]="configGraph"
+        style="width: 100%; height: 400px; display: block"
+      ></highcharts-chart>
+      <!-- Action -->
+      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+    </div>
+  </div>
+</div>
+
+
+} @else if (value === "my_favorites"){
+<h1>My favorites</h1>
+@for (favTeam of favoriteTeams; track favoriteTeams.team_id) {
+  <button (click)="showMiniMenu(favTeam)">{{favTeam.team_name}}</button>
+} 
+@if (miniMenu) {
+  <div>
+    <button (click)="getStats(selectedTeam.team_id)" >Show Stats</button>
+    <button [routerLink]="['/CloudMatch/Team', { info: selectedTeam.team_name }]" >Show Team</button>
+  </div>
+}
+
+
+@if (!hideGraphs) {
+<div class="w-100">
+  <div class="card">
+    <div class="card-body">
+      <!-- Title -->
+      <h5 class="card-title">Graph</h5>
+      <!-- Chart -->
+      <highcharts-chart
+        [Highcharts]="myGraph"
+        [options]="configGraph"
+        style="width: 100%; height: 400px; display: block"
+      ></highcharts-chart>
+      <!-- Action -->
+      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+    </div>
+  </div>
+</div>
+} 
+
 } @else { @if (Object.keys(team).length > 0) {
 <div>
   <h2>{{ team.team_name }}</h2>
@@ -25,9 +75,12 @@
   <h3>Delegate:</h3>
   <h2>{{ team.team_delegate }}</h2>
 </div>
-} }
-
-<!-- <div>
+@if (isFave) {
+<button (click)="removeTeamFromFaves()">Remove from faves</button> } @else
+{<button (click)="addTeamToFaves()">Add to faves</button>
+}
+<h5>{{ alert }}</h5>
+<div>
   @if (Object.keys(team).length > 0) {
   <h2>Players</h2>
   <h4>{{ error }}</h4>
@@ -37,6 +90,6 @@
     <h3>{{ player.player_nickname }}</h3>
   </div>
 
-
   } }
-</div> -->
+</div>
+} }

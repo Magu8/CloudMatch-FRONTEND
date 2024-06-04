@@ -28,7 +28,7 @@
     <mat-label>Select a Team delegate</mat-label>
     <mat-select [(value)]="selectedUserId">
       @for (user of users; track users.user_id) {
-      <mat-option value="{{ user.user_id }}"
+      <mat-option value="{{ user.user_id }}" *ngIf="user.role == 'User'"
         >{{ user.user_name }} {{ user.user_surname }}</mat-option
       >
       }
@@ -97,7 +97,7 @@
     <mat-label>Select a Local Team</mat-label>
     <mat-select [(value)]="selectedTeamLocalId">
       @for (team of participants; track participants.team_id) {
-      <mat-option value="{{ team.team_id }}">{{ team.team_name }}</mat-option>
+      <mat-option value="{{ team.team_id }}" *ngIf="team.team_id != selectedTeamVisitorId">{{ team.team_name }}</mat-option>
       }
     </mat-select>
   </mat-form-field>
@@ -106,7 +106,7 @@
     <mat-label>Select a Visitor Team</mat-label>
     <mat-select [(value)]="selectedTeamVisitorId">
       @for (team of participants; track participants.team_id) {
-      <mat-option value="{{ team.team_id }}">{{ team.team_name }}</mat-option>
+      <mat-option value="{{ team.team_id }}" *ngIf="team.team_id != selectedTeamLocalId">{{ team.team_name }}</mat-option>
       }
     </mat-select>
   </mat-form-field>
@@ -115,7 +115,7 @@
     <mat-label>Select a Referee</mat-label>
     <mat-select [(value)]="selectedUserId">
       @for (user of users; track users.user_id) {
-      <mat-option value="{{ user.user_id }}"
+      <mat-option value="{{ user.user_id }}" *ngIf="user.role == 'Referee'"
         >{{ user.user_name }} {{ user.user_surname }}</mat-option
       >
       }</mat-select
@@ -130,7 +130,7 @@
     <mat-label>Select a user</mat-label>
     <mat-select [(value)]="selectedUserId">
       @for (user of users; track users.user_id) {
-      <mat-option value="{{ user.user_id }}"
+      <mat-option value="{{ user.user_id }}" *ngIf="user.role !== 'Admin'"
         >{{ user.user_name }} {{ user.user_surname }}</mat-option
       >
       }

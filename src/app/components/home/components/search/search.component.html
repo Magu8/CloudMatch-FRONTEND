@@ -1,0 +1,9 @@
+<form >
+<input type="tel"  placeholder="Search team" name= "search" [(ngModel)]= "searchTeam" (ngModelChange)="search()">
+<br/>
+</form>
+@if(results){
+    <div>
+        <h3 [routerLink]="['/CloudMatch/Team', { info: results.team_name }]">{{results.team_name}}</h3>
+    </div>
+}

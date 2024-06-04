@@ -10,9 +10,9 @@
 } @else if (activeUser.role === "Team Delegate") {
 <a [routerLink]="['/CloudMatch/Team', { type: 'delegate' }]">My Team</a>
 <a [routerLink]="['/CloudMatch/CREATE', { type: 'player' }]">Add Player</a>
-} @else if (activeUser.role === "Referee") {
-<h4>Input</h4>
 }
+<a [routerLink]="['/CloudMatch/Team', {type: 'my_favorites'}]">Favorite teams</a>
+
 <a (click)="logOut()">Logout</a>
 
 <router-outlet></router-outlet>
