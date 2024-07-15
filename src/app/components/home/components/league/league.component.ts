@@ -7,11 +7,12 @@ import { Store } from '@ngrx/store';
 import { TeamService } from '../../../../services/team.service';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { MatchComponent } from './components/match/match.component';
+import {MatDividerModule} from '@angular/material/divider';
 
 @Component({
   selector: 'league',
   standalone: true,
-  imports: [RouterLink, MatFormFieldModule, MatSelectModule, CalendarComponent, MatchComponent],
+  imports: [RouterLink, MatFormFieldModule, MatSelectModule, CalendarComponent, MatchComponent, MatDividerModule],
   templateUrl: './league.component.html',
   styleUrl: './league.component.scss',
 })
@@ -48,6 +49,9 @@ export class LeagueComponent implements OnInit {
       next: (dataAllLeagues) => {
         this.leaguesError = '';
         this.leagues = dataAllLeagues;
+        this.selectedLeagueId = this.leagues[0].league_id
+        this.getParticipants(this.leagues[0].league_id)
+        
       },
       error: (error) => {
         if (error.status === 404) {

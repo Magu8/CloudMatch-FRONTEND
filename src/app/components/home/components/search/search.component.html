@@ -1,9 +1,16 @@
-<form >
-<input type="tel"  placeholder="Search team" name= "search" [(ngModel)]= "searchTeam" (ngModelChange)="search()">
-<br/>
-</form>
+<div id="search_bar">
+  <input
+    type="text"
+    placeholder="Search team"
+    name="search"
+    [(ngModel)]="searchTeam"
+    (ngModelChange)="search()"
+  />
+</div>
 @if(results){
-    <div>
-        <h3 [routerLink]="['/CloudMatch/Team', { info: results.team_name }]">{{results.team_name}}</h3>
-    </div>
+<div id="search_results" @fadeInOut>
+  <h3 (click)="clear()" [routerLink]="['/CloudMatch/Team', { info: results.team_name }]">
+    {{ results.team_name }}
+  </h3>
+</div>
 }

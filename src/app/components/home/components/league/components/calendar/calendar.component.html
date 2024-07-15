@@ -1,13 +1,17 @@
-<div class="calendar">
+<div id="calendar">
   <h1>CALENDAR</h1>
-  <h4>{{error}}</h4>
-  @for (match of matches; track matches.match_id) {
-  <div>
-    <h4>{{ match.local_team }}</h4>
-    <h3>VS</h3>
-    <h4>{{ match.visitor_team }}</h4>
-  </div>
-  <h4>{{match.match_date}}</h4>
-  <h4>{{match.match_time}}</h4>
-  }
+  
+    <h4>{{ error }}</h4>
+    @for (match of matches; track matches.match_id) {
+    <div class="calendar_content">
+      <h4>{{ match.match_date }}</h4>
+      <h4>{{ match.match_time }}</h4>
+      <h4>{{ match.local_team }}</h4>
+      <h3>VS</h3>
+      <h4>{{ match.visitor_team }}</h4>
+    </div>
+    <mat-divider></mat-divider>
+   
+    }
+  
 </div>

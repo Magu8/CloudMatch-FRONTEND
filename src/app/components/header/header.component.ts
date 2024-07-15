@@ -5,12 +5,18 @@ import { Store } from '@ngrx/store';
 import { logOutActiveUser } from '../../actions/activeUser.actions';
 import { LeagueService } from '../../services/league.service';
 import { OtherService } from '../../services/other.service';
-import { take } from 'rxjs';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import { SearchComponent } from '../home/components/search/search.component';
 
 @Component({
   selector: 'cloudMatch-header',
   standalone: true,
-  imports: [HomeComponent, RouterOutlet, RouterLink],
+  imports: [HomeComponent, SearchComponent, RouterOutlet, RouterLink, MatSidenavModule, MatFormFieldModule, MatSelectModule, MatButtonModule, MatIconModule, MatDividerModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -23,6 +29,7 @@ export class HeaderComponent implements OnInit {
   private store = inject(Store);
 
   activeUser: any = null;
+menuOpen:  boolean = false;
 
   ngOnInit(): void {
     this.store.select('activeUser').subscribe((user) => {

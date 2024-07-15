@@ -39,12 +39,12 @@
 } @else if (value === "my_favorites"){
 <h1>My favorites</h1>
 @for (favTeam of favoriteTeams; track favoriteTeams.team_id) {
-  <button (click)="showMiniMenu(favTeam)">{{favTeam.team_name}}</button>
+  <button  mat-raised-button (click)="showMiniMenu(favTeam)">{{favTeam.team_name}}</button>
 } 
 @if (miniMenu) {
   <div>
-    <button (click)="getStats(selectedTeam.team_id)" >Show Stats</button>
-    <button [routerLink]="['/CloudMatch/Team', { info: selectedTeam.team_name }]" >Show Team</button>
+    <button  mat-button (click)="getStats(selectedTeam.team_id)" >Show Stats</button>
+    <button  mat-button [routerLink]="['/CloudMatch/Team', { info: selectedTeam.team_name }]" >Show Team</button>
   </div>
 }
 

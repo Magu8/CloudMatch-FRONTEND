@@ -1,16 +1,58 @@
-<form (ngSubmit)="registerUser(register)">
-  <input type="text" name="name" placeholder="Insert your name"  [(ngModel)]="register.name"  />
-  <br />
-  <input type="text" name="surname" placeholder="Insert your surname"  [(ngModel)]="register.surname"  />
-  <br />
-  <input type="email" name="email" placeholder="Insert your email"  [(ngModel)]="register.email"  />
-  <br />
-  <input type="password" name="password" placeholder="Insert your password"  [(ngModel)]="register.password"  />
-  <br />
-  <input type="submit" value="Register account" />
-</form>
+<div id="register_form">
+  <h2 class="title">Sign Up</h2>
+
+  <form class="form" (ngSubmit)="registerUser(register)">
+    <mat-form-field>
+      <mat-label>Insert your name</mat-label>
+      <input
+        matInput
+        type="text"
+        name="name"
+        placeholder="Insert your name"
+        [(ngModel)]="register.name"
+      />
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Insert your surname</mat-label>
+      <input
+        matInput
+        type="text"
+        name="surname"
+        placeholder="Insert your surname"
+        [(ngModel)]="register.surname"
+      />
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Insert your email</mat-label>
+      <input
+        matInput
+        type="email"
+        name="email"
+        placeholder="Insert your email"
+        [(ngModel)]="register.email"
+      />
+    </mat-form-field>
+
+    <br />
+    <mat-form-field>
+      <mat-label>Insert your password </mat-label>
+      <input
+        matInput
+        type="password"
+        name="password"
+        placeholder="Insert your password"
+        [(ngModel)]="register.password"
+      />
+    </mat-form-field>
+    <br />
+    <button class="btn" mat-raised-button type="submit">Register account</button>
+  </form>
+</div>
+
 @if (alert !== '' && error === '') {
-  <h3>{{alert}}</h3>
+<h3>{{ alert }}</h3>
 } @else if (error !== '' && alert === '') {
-  <h3>{{error}}</h3>
+<h3>{{ error }}</h3>
 } @else {}

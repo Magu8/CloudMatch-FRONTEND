@@ -6,11 +6,12 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { MatchService } from '../../../../../../services/match.service';
+import {MatDividerModule} from '@angular/material/divider';
 
 @Component({
   selector: 'calendar',
   standalone: true,
-  imports: [],
+  imports: [MatDividerModule],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss',
 })

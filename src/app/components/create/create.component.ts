@@ -16,13 +16,18 @@ import { MatchService } from '../../services/match.service';
 import { UserRole } from '../../models/user.role';
 import { OtherService } from '../../services/other.service';
 import { CommonModule } from '@angular/common';
+import {provideNativeDateAdapter} from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'cloudMatch-create',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatSelectModule, CommonModule],
+  imports: [FormsModule, MatFormFieldModule, MatSelectModule, CommonModule, MatInputModule, MatDatepickerModule, MatButtonModule],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss',
+  providers: [provideNativeDateAdapter()]
 })
 export class CreateComponent implements OnInit {
   value?: string = '';
@@ -92,7 +97,7 @@ export class CreateComponent implements OnInit {
   }
 
   league: League = {
-    league_logo: '', //TODO create a league_logo
+    league_logo: '../../../assets/league_logo_default.png',
     league_name: '',
     start_date: '',
     end_date: '',
@@ -102,6 +107,9 @@ export class CreateComponent implements OnInit {
 
   createLeague(leagueBody: League) {
 
+    leagueBody.start_date = this.otherService.formatDate(new Date(leagueBody.start_date));
+    leagueBody.end_date = this.otherService.formatDate(new Date(leagueBody.end_date));    
+    
     this.leagueService.createLeague(leagueBody).subscribe({
       next: (success: any) => {
         this.error = '';
@@ -124,7 +132,7 @@ export class CreateComponent implements OnInit {
 
   team: Team = {
     team_name: '',
-    team_logo: '', //TODO create a team_logo
+    team_logo: '../../../assets/team_logo_default.png',
     team_delegate: 0,
   };
   createTeam(teamBody: Team) {
@@ -149,7 +157,7 @@ export class CreateComponent implements OnInit {
     player_name: '',
     player_surname: '',
     player_nickname: '',
-    player_photo: '../../../assets/player_image.png',
+    player_photo: '../../../assets/player_image_default.png',
     age: 0,
   };
   createPlayer(playerBody: Player) {

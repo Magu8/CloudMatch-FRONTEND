@@ -1,0 +1,41 @@
+
+nav{
+    padding: 20px;
+    width: 220px;
+}
+.menu {
+    position: fixed;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    a {
+        margin: 10px 0 10px 0;
+        text-decoration: none;
+        color: inherit;
+    }
+}
+
+header{
+    width: 100%;
+    z-index: 2;
+    display: flex;
+    position: fixed;
+    background-color: rgb(255, 255, 255);
+    align-items: center;
+    img {
+        height: 35px;
+        width: 50px;
+        margin: 0 20px 0 0;
+    }
+    button {
+        background:none ;
+        margin: 10px;
+    }
+
+    .stripes{
+        color: black;
+    }
+    
+}

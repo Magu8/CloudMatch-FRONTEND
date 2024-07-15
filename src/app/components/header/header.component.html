@@ -1,18 +1,70 @@
-<p>Welcome back, {{ activeUser.user_name }} {{ activeUser.user_surname }}</p>
-<a [routerLink]="['/CloudMatch/HOME']">HOME</a>
-@if (activeUser.role === "Admin") {
-<a [routerLink]="['/CloudMatch/CREATE', { type: 'league' }]">Create League</a>
-<a [routerLink]="['/CloudMatch/CREATE', { type: 'team' }]">Create Team</a>
-<a [routerLink]="['/CloudMatch/CREATE', { type: 'match' }]">Create Match day</a>
-<a [routerLink]="['/CloudMatch/CREATE', { type: 'edit_role' }]"
-  >Edit Roles</a
->
-} @else if (activeUser.role === "Team Delegate") {
-<a [routerLink]="['/CloudMatch/Team', { type: 'delegate' }]">My Team</a>
-<a [routerLink]="['/CloudMatch/CREATE', { type: 'player' }]">Add Player</a>
-}
-<a [routerLink]="['/CloudMatch/Team', {type: 'my_favorites'}]">Favorite teams</a>
+<mat-drawer-container [hasBackdrop]="true">
+  <mat-drawer #menu [mode]="'over'">
+    <nav>
+      <div class="menu">
+        <p>
+          Welcome back, {{ activeUser.user_name }} {{ activeUser.user_surname }}
+        </p>
+        <a [routerLink]="['/CloudMatch/HOME']" (click)="menu.toggle()">HOME</a>
+        <mat-divider></mat-divider>
+        @if (activeUser.role === "Admin") {
+        <a
+          [routerLink]="['/CloudMatch/CREATE', { type: 'league' }]"
+          (click)="menu.toggle()"
+          >Create League</a
+        >
+        <mat-divider></mat-divider>
+        <a
+          [routerLink]="['/CloudMatch/CREATE', { type: 'team' }]"
+          (click)="menu.toggle()"
+          >Create Team</a
+        >
+        <mat-divider></mat-divider>
+        <a
+          [routerLink]="['/CloudMatch/CREATE', { type: 'match' }]"
+          (click)="menu.toggle()"
+          >Create Match day</a
+        >
+        <mat-divider></mat-divider>
+        <a
+          [routerLink]="['/CloudMatch/CREATE', { type: 'edit_role' }]"
+          (click)="menu.toggle()"
+          >Edit Roles</a
+        >
+        <mat-divider></mat-divider>
+        } @else if (activeUser.role === "Team Delegate") {
+        <a
+          [routerLink]="['/CloudMatch/Team', { type: 'delegate' }]"
+          (click)="menu.toggle()"
+          >My Team</a
+        >
+        <mat-divider></mat-divider>
+        <a
+          [routerLink]="['/CloudMatch/CREATE', { type: 'player' }]"
+          (click)="menu.toggle()"
+          >Add Player</a
+        >
+        <mat-divider></mat-divider>
+        }
+        <a
+          [routerLink]="['/CloudMatch/Team', { type: 'my_favorites' }]"
+          (click)="menu.toggle()"
+          >Favorite teams</a
+        >
+        <mat-divider></mat-divider>
+        <a (click)="logOut()">Logout</a>
+      </div>
+    </nav></mat-drawer
+  >
 
-<a (click)="logOut()">Logout</a>
-
-<router-outlet></router-outlet>
+  <mat-drawer-content>
+    <header>
+      <button mat-icon-button (click)="menu.toggle()">
+        <mat-icon class="stripes">menu</mat-icon>
+      </button>
+      <img [routerLink]="['/CloudMatch/HOME']" src="../../../assets/cloud_match_logo.png" alt="cloudMatch_logo" />
+      <search />
+    </header>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -5,11 +5,12 @@ import { Store } from '@ngrx/store';
 import { setMyTeam } from '../../../../actions/myTeam.actions';
 import { HighchartsChartModule } from 'highcharts-angular';
 import * as Highcharts from 'highcharts';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'team',
   standalone: true,
-  imports: [RouterLink, HighchartsChartModule],
+  imports: [RouterLink, HighchartsChartModule, MatButtonModule],
   templateUrl: './team.component.html',
   styleUrl: './team.component.scss',
 })

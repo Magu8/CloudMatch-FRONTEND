@@ -1,7 +1,22 @@
-<form (ngSubmit)="loginUserReducer(login)">
-  <input type="email" required name="username" [(ngModel)]="login.email" />
-  <br />
-  <input type="password" name="password" [(ngModel)]="login.password" />
-  <br />
-  <input type="submit" value="Login" />
-</form>
+<div id="login_form">
+  <h2 class="title">Log In</h2>
+  <form class="form" (ngSubmit)="loginUser(login)">
+    <mat-form-field>
+      <mat-label>email</mat-label>
+      <input name="email" matInput [(ngModel)]="login.email" />
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>password</mat-label>
+      <input
+        name="password"
+        type="password"
+        matInput
+        [(ngModel)]="login.password"
+      />
+    </mat-form-field>
+    <br>
+    <button mat-raised-button class="btn" type="submit">Login</button>
+    <p class="info" (click)="scrollToRegister()">No account yet? Sign up right away</p>
+  </form>
+</div>

@@ -1,3 +1,26 @@
-.calendar{
-    background-color: crimson;
+#calendar {
+  h1 {
+    border-radius: 10px 10px 0px 0px;
+    background-color: rgb(142, 202, 230);
+    color: #1d1d1d;
+    padding: 15px;
+    font-size: 25px;
+    text-align: center;
+  }
+
+  background: rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 2px solid #ffffff;
+  -webkit-box-shadow: 2px 4px 5px 2px #2d2d2d;
+  -moz-box-shadow: 2px 4px 5px 2px #2d2d2d;
+  box-shadow: 2px 4px 5px 2px #2d2d2d;
+  border-radius: 10px;
+}
+
+.calendar_content {
+  padding: 10px;
+  grid-template-columns: repeat(5, 1fr);
+  justify-items: center;
+  font-size: small;
 }

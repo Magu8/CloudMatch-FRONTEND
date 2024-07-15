@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -8,7 +8,8 @@ import { reducers, metaReducers } from './reducers';
 import { provideEffects } from '@ngrx/effects';
 import { UserEffects } from './effects/user.effects';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,6 +17,9 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideClientHydration(),
     provideStore(reducers, { metaReducers }),
-    provideEffects(UserEffects), provideAnimationsAsync(),
-],
+    provideEffects(UserEffects),
+    provideAnimationsAsync(),
+    provideAnimations(),
+    importProvidersFrom(MatSidenavModule),
+  ],
 };

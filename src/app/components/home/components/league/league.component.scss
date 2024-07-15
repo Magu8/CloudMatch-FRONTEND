@@ -1,7 +1,67 @@
-.league{
-    background-color: gray;
+#league {
+  background-color: rgb(62, 64, 66);
+  border-radius: 10px;
+  color: white;
+
+  h1 {
+    border-radius: 10px 10px 0px 0px;
+    background-color:  rgb(33, 158, 188);
+    color: white;
+    padding: 15px;
+    font-size: 25px;
+    text-align: center;
+  }
 }
 
-img{
-    max-width: 20px;
+.league_content {
+  padding: 15px;
+}
+
+
+.league_data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h3 {
+    font-size: 25px;
+    margin: 15px;
+  }
+  h5 {
+    font-size: 15px;
+  }
+  img {
+    max-width: 10.5rem;
+    margin: 10px;
+  }
+  padding: 10px;
+}
+
+.participants_data {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+
+  h4 {
+    font-weight: bold;
+    margin: 0;
+  }
+
+  h3,
+  img {
+    margin: 0;
+  }
+
+  img {
+    max-width: 40px;
+  }
+}
+
+.divider {
+  background-color:  rgb(33, 158, 188);
+  height: 5px;
+}
+
+.participants_divider {
+  background-color: rgb(255, 255, 255);
 }

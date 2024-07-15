@@ -1,0 +1,25 @@
+.btn  {
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+    &:hover {
+      background-color:#ffce47;; /* Color de fondo en hover */
+      color: white; /* Color de texto personalizado */
+      
+    }
+}
+
+.title {
+  text-align: center;
+  margin: 0 0 0 0;
+}
+
+#register_form {
+  border-radius: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 400px;
+  width: 260px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 40px 20px;
+}
