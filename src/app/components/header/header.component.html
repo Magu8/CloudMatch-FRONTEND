@@ -62,8 +62,14 @@
       <button mat-icon-button (click)="menu.toggle()">
         <mat-icon class="stripes">menu</mat-icon>
       </button>
-      <img [routerLink]="['/CloudMatch/HOME']" src="../../../assets/cloud_match_logo.png" alt="cloudMatch_logo" />
-      <search />
+      <div class="search">
+        <img
+          [routerLink]="['/CloudMatch/HOME']"
+          src="../../../assets/cloud_match_logo.png"
+          alt="cloudMatch_logo"
+        />
+        <search />
+      </div>
     </header>
     <router-outlet></router-outlet>
   </mat-drawer-content>

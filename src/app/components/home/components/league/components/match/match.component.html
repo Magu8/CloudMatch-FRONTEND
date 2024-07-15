@@ -1,18 +1,22 @@
 @if (match) {
-<div class="match">
+<div id="match">
   @if (matchOnLive) {
-  <h1 [routerLink]="['/CloudMatch/MatchOnLive']">MATCH ON LIVE</h1>
+  <h1>ON LIVE</h1>
   } @else if (matchFinished) {
   <h1>MATCH finished</h1>
   } @else {
   <h1>MATCH inactive</h1>
   }
-  <div>
-    <h3>{{ match.local_team }}</h3>
-    <h3>{{ match.local_score }}</h3>
-    <h2>VS</h2>
-    <h3>{{ match.visitor_team }}</h3>
-    <h3>{{ match.visitor_score }}</h3>
+  <div [routerLink]="['/CloudMatch/MatchOnLive']" class="match_info">
+    <div class="team">
+      <h3>{{ match.local_team }}</h3>
+      <h3 class="score">{{ match.local_score }}</h3>
+    </div>
+    <h2 class="hyphen">-</h2>
+    <div class="team">
+      <h3>{{ match.visitor_team }}</h3>
+      <h3 class="score">{{ match.visitor_score }}</h3>
+    </div>
   </div>
 </div>
 }

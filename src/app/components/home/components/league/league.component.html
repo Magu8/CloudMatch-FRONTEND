@@ -46,23 +46,33 @@
       </div>
       <mat-divider class="divider"></mat-divider>
       @for (participant of participants; track participant.team_id) {
-      <div class="participants_data">
+      
         @if(activeUser.user_id === participant.team_delegate){
-        <img
+        <div
+          class="participants_data"
           [routerLink]="['/CloudMatch/Team', { type: 'delegate' }]"
-          src="{{ participant.team_logo }}"
-          alt="{{ participant.team_name }}"
-        />
+        >
+          <img
+            src="{{ participant.team_logo }}"
+            alt="{{ participant.team_name }}"
+          />
+          <h3>{{ participant.team_name }}</h3>
+          <h3>{{ participant.score }}</h3>
+        </div>
         } @else {
-        <img
+        <div
+          class="participants_data"
           [routerLink]="['/CloudMatch/Team', { info: participant.team_name }]"
-          src="{{ participant.team_logo }}"
-          alt="{{ participant.team_name }}"
-        />}
-
-        <h3>{{ participant.team_name }}</h3>
-        <h3>{{ participant.score }}</h3>
-      </div>
+        >
+          <img
+            src="{{ participant.team_logo }}"
+            alt="{{ participant.team_name }}"
+          />
+          <h3>{{ participant.team_name }}</h3>
+          <h3>{{ participant.score }}</h3>
+        </div>
+        }
+    
       <mat-divider class="participants_divider"></mat-divider>
       }
     </div>

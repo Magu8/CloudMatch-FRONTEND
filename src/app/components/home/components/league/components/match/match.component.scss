@@ -1,3 +1,46 @@
-.match{
+#match {
+  margin: 0 0 30px 0;
+  height: 200px;
+  border-radius: 10px;
+  h1 {
     background-color: rgb(255, 183, 3);
+    border-radius: 10px 10px 0px 0px;
+    color: white;
+    padding: 15px;
+    font-size: 25px;
+    text-align: center;
+  }
+  background-image: url("../../../../../../../assets/background_login.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 70% 22%;
+
+  .match_info {
+    padding: 10px;
+    margin: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: white;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-end;
+
+    .hyphen {
+        font-size: 40px;
+    }
+
+    .team {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .score {
+        font-size: 40px;
+      }
+    }
+  }
+
+  
 }

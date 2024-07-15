@@ -16,25 +16,36 @@ import { MatchService } from '../../services/match.service';
 import { UserRole } from '../../models/user.role';
 import { OtherService } from '../../services/other.service';
 import { CommonModule } from '@angular/common';
-import {provideNativeDateAdapter} from '@angular/material/core';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatButtonModule} from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 @Component({
   selector: 'cloudMatch-create',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatSelectModule, CommonModule, MatInputModule, MatDatepickerModule, MatButtonModule],
+  imports: [
+    FormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    CommonModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    MatDividerModule,
+    NgxMaterialTimepickerModule,
+  ],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss',
-  providers: [provideNativeDateAdapter()]
+  providers: [provideNativeDateAdapter()],
 })
 export class CreateComponent implements OnInit {
   value?: string = '';
 
   users: any = [];
   leagues: any = [];
-
 
   participants: any = [];
 
@@ -103,19 +114,19 @@ export class CreateComponent implements OnInit {
     end_date: '',
   };
 
- 
-
   createLeague(leagueBody: League) {
+    leagueBody.start_date = this.otherService.formatDate(
+      new Date(leagueBody.start_date)
+    );
+    leagueBody.end_date = this.otherService.formatDate(
+      new Date(leagueBody.end_date)
+    );
 
-    leagueBody.start_date = this.otherService.formatDate(new Date(leagueBody.start_date));
-    leagueBody.end_date = this.otherService.formatDate(new Date(leagueBody.end_date));    
-    
     this.leagueService.createLeague(leagueBody).subscribe({
       next: (success: any) => {
         this.error = '';
         this.alert = success.message;
         console.log(success);
-        
       },
       error: (fail: any) => {
         this.alert = '';
@@ -123,7 +134,7 @@ export class CreateComponent implements OnInit {
           this.error = fail.error.message;
         } else {
           console.log(fail);
-          
+
           this.error = fail.error.message;
         }
       },
@@ -198,6 +209,7 @@ export class CreateComponent implements OnInit {
   }
 
   createMatchDay(matchBody: MatchDate) {
+    matchBody.match_date = this.otherService.formatDate(matchBody.match_date)
     matchBody.match_time = this.otherService.floatTime(matchBody.match_time);
     this.matchService
       .createMatch(
@@ -220,8 +232,6 @@ export class CreateComponent implements OnInit {
             this.error = fail.error.message;
           }
         },
-      });
+      });  
   }
-
-
 }

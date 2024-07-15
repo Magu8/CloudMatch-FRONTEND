@@ -66,10 +66,12 @@ export class MatchComponent implements OnChanges {
             });
           });
         }
+      
       },
       error: () => {
         this.match = null;
       },
     });
+   
   }
 }

@@ -1,193 +1,202 @@
-@if (value === "league") {
+<div id="create">
+  @if (value === "league") {
 
-<form (ngSubmit)="createLeague(league)">
-  <mat-form-field>
-    <mat-label>League Name</mat-label>
-    <input matInput name="leagueName" [(ngModel)]="league.league_name" />
-  </mat-form-field>
-  <br />
-  <mat-form-field>
-    <mat-label>Enter a date range</mat-label>
-    <mat-date-range-input [rangePicker]="picker">
+  <form (ngSubmit)="createLeague(league)">
+    <h2>Create a League</h2>
+    <mat-divider class="divider"></mat-divider>
+    <mat-form-field>
+      <mat-label>League Name</mat-label>
+      <input matInput name="leagueName" [(ngModel)]="league.league_name" />
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input
+          matStartDate
+          name="leagueStartDate"
+          placeholder="Start date"
+          [(ngModel)]="league.start_date"
+        />
+        <input
+          matEndDate
+          name="leagueEndDate"
+          placeholder="End date"
+          [(ngModel)]="league.end_date"
+        />
+      </mat-date-range-input>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+    <br />
+    <button mat-raised-button type="submit">Done</button>
+  </form>
+  } @else if (value === "team") {
+
+  <form (ngSubmit)="createTeam(team)">
+    <h2>Create a Team</h2>
+    <mat-divider class="divider"></mat-divider>
+    <mat-form-field>
+      <mat-label>Team Name</mat-label>
+      <input matInput name="teamName" [(ngModel)]="team.team_name" />
+    </mat-form-field>
+
+    <br />
+    <mat-form-field>
+      <mat-label>Select a Team delegate</mat-label>
+      <mat-select [(value)]="selectedUserId">
+        @for (user of users; track users.user_id) {
+        <mat-option value="{{ user.user_id }}" *ngIf="user.role == 'User'"
+          >{{ user.user_name }} {{ user.user_surname }}</mat-option
+        >
+        }
+      </mat-select>
+    </mat-form-field>
+    <br />
+    <button mat-raised-button type="submit">Done</button>
+  </form>
+  } @else if (value === "player") {
+  <form (ngSubmit)="createPlayer(player)">
+    <h2>Add Player</h2>
+    <mat-divider class="divider"></mat-divider>
+    <mat-form-field>
+      <mat-label>Player name</mat-label>
+      <input matInput name="playerName" [(ngModel)]="player.player_name" />
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Player surname</mat-label>
+      <input matInput name="playerSurame" [(ngModel)]="player.player_surname" />
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Player nick (Optional)</mat-label>
       <input
-        matStartDate
-        name="leagueStartDate"
-        placeholder="Start date"
-        [(ngModel)]="league.start_date"
+        matInput
+        name="playerNickname"
+        [(ngModel)]="player.player_nickname"
       />
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Player photo</mat-label>
+      <input matInput name="playerNickname" [(ngModel)]="player.player_photo" />
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Player age</mat-label>
+      <input matInput name="playerNickname" [(ngModel)]="player.age" />
+    </mat-form-field>
+    <br />
+    <button mat-raised-button type="submit">Done</button>
+  </form>
+  } @else if (value === "match") {
+  <form (ngSubmit)="createMatchDay(match)">
+    <h2>Create Match Day</h2>
+    <mat-divider class="divider"></mat-divider>
+    <mat-form-field>
+      <mat-label>Choose a date</mat-label>
       <input
-        matEndDate
-        name="leagueEndDate"
-        placeholder="End date"
-        [(ngModel)]="league.end_date"
+        matInput
+        [matDatepicker]="picker"
+        name="matchDate"
+        [(ngModel)]="match.match_date"
       />
-    </mat-date-range-input>
-    <mat-hint>YYYY/MM/DD – YYYY/MM/DD</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-date-range-picker #picker></mat-date-range-picker>
-  </mat-form-field>
-  <br />
-  <button mat-raised-button type="submit">Create League</button>
-</form>
-} @else if (value === "team") {
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <br />
+    <div>
+       <div class="ngx-timepicker-field-example">
+            <ngx-timepicker-field name="matchTime"
+            pattern="([01]?[0-9]|2[0-3]):00" [format]="24" [(ngModel)]="match.match_time"></ngx-timepicker-field>
+        </div>
+    </div>
 
-<form (ngSubmit)="createTeam(team)">
-  <mat-form-field>
-    <mat-label>Team Name</mat-label>
-    <input matInput name="teamName" [(ngModel)]="team.team_name" />
-  </mat-form-field>
-
-  <br />
-  <mat-form-field>
-    <mat-label>Select a Team delegate</mat-label>
-    <mat-select [(value)]="selectedUserId">
-      @for (user of users; track users.user_id) {
-      <mat-option value="{{ user.user_id }}" *ngIf="user.role == 'User'"
-        >{{ user.user_name }} {{ user.user_surname }}</mat-option
+    <br />
+    <mat-form-field>
+      <mat-label>Select a league </mat-label>
+      <mat-select
+        [(value)]="selectedLeagueId"
+        (valueChange)="getLeagueParticipants(selectedLeagueId)"
       >
-      }
-    </mat-select>
-  </mat-form-field>
-  <br />
-  <button mat-raised-button type="submit">Create Team</button>
-</form>
-} @else if (value === "player") {
-<form (ngSubmit)="createPlayer(player)">
+        @for (league of leagues; track leagues.league_id) {
+        <mat-option value="{{ league.league_id }}">{{
+          league.league_name
+        }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Select a Local Team</mat-label>
+      <mat-select [(value)]="selectedTeamLocalId">
+        @for (team of participants; track participants.team_id) {
+        <mat-option
+          value="{{ team.team_id }}"
+          *ngIf="team.team_id != selectedTeamVisitorId"
+          >{{ team.team_name }}</mat-option
+        >
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Select a Visitor Team</mat-label>
+      <mat-select [(value)]="selectedTeamVisitorId">
+        @for (team of participants; track participants.team_id) {
+        <mat-option
+          value="{{ team.team_id }}"
+          *ngIf="team.team_id != selectedTeamLocalId"
+          >{{ team.team_name }}</mat-option
+        >
+        }
+      </mat-select>
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Player name</mat-label>
-    <input matInput name="playerName" [(ngModel)]="player.player_name" >
-  </mat-form-field>
-  <br />
-  <mat-form-field>
-    <mat-label>Player surname</mat-label>
-    <input matInput name="playerSurame" [(ngModel)]="player.player_surname" >
-  </mat-form-field>
-  <br />
-
-  <mat-form-field>
-    <mat-label>Player nick (Optional)</mat-label>
-    <input matInput name="playerNickname" [(ngModel)]="player.player_nickname" >
-  </mat-form-field>
-
-  <br />
-
-  <mat-form-field>
-    <mat-label>Player photo</mat-label>
-    <input matInput name="playerNickname" [(ngModel)]="player.player_photo" >
-  </mat-form-field>
-  
-  <br />
-
-  <mat-form-field>
-    <mat-label>Player age</mat-label>
-    <input matInput name="playerNickname" [(ngModel)]="player.age" >
-  </mat-form-field>
-
-
-  <br />
-  <button mat-raised-button type="submit">Add Player</button>
-</form>
-} @else if (value === "match") {
-<form (ngSubmit)="createMatchDay(match)">
-  <mat-form-field>
-    <mat-label>Choose a date</mat-label>
-    <input
-      matInput
-      [matDatepicker]="picker"
-      name="matchDate"
-      [(ngModel)]="match.match_date"
-    />
-    <mat-hint>YYYY/MM/DD</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-  <br />
-  <input
-    type="time"
-    pattern="([01]?[0-9]|2[0-3]):00"
-    name="matchTime"
-    [(ngModel)]="match.match_time"
-  />
-  <br />
-  <mat-form-field>
-    <mat-label>Select a league </mat-label>
-    <mat-select
-      [(value)]="selectedLeagueId"
-      (valueChange)="getLeagueParticipants(selectedLeagueId)"
-    >
-      @for (league of leagues; track leagues.league_id) {
-      <mat-option value="{{ league.league_id }}">{{
-        league.league_name
-      }}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Select a Local Team</mat-label>
-    <mat-select [(value)]="selectedTeamLocalId">
-      @for (team of participants; track participants.team_id) {
-      <mat-option
-        value="{{ team.team_id }}"
-        *ngIf="team.team_id != selectedTeamVisitorId"
-        >{{ team.team_name }}</mat-option
+    <mat-form-field>
+      <mat-label>Select a Referee</mat-label>
+      <mat-select [(value)]="selectedUserId">
+        @for (user of users; track users.user_id) {
+        <mat-option value="{{ user.user_id }}" *ngIf="user.role == 'Referee'"
+          >{{ user.user_name }} {{ user.user_surname }}</mat-option
+        >
+        }</mat-select
       >
-      }
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Select a Visitor Team</mat-label>
-    <mat-select [(value)]="selectedTeamVisitorId">
-      @for (team of participants; track participants.team_id) {
-      <mat-option
-        value="{{ team.team_id }}"
-        *ngIf="team.team_id != selectedTeamLocalId"
-        >{{ team.team_name }}</mat-option
-      >
-      }
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Select a Referee</mat-label>
-    <mat-select [(value)]="selectedUserId">
-      @for (user of users; track users.user_id) {
-      <mat-option value="{{ user.user_id }}" *ngIf="user.role == 'Referee'"
-        >{{ user.user_name }} {{ user.user_surname }}</mat-option
-      >
-      }</mat-select
-    >
-  </mat-form-field>
-
-  <button mat-raised-button type="submit">Create Match Day</button>
-</form>
-} @else if (value === "edit_role") {
-<form (ngSubmit)="editUserRole(user, selectedUserId)">
-  <mat-form-field>
-    <mat-label>Select a user</mat-label>
-    <mat-select [(value)]="selectedUserId">
-      @for (user of users; track users.user_id) {
-      <mat-option value="{{ user.user_id }}" *ngIf="user.role !== 'Admin'"
-        >{{ user.user_name }} {{ user.user_surname }}</mat-option
-      >
-      }
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Select a role</mat-label>
-    <mat-select [(value)]="user.role">
-      <mat-option value="Admin">Admin</mat-option>
-      <mat-option value="Referee">Referee</mat-option>
-      <mat-option value="Team Delegate">Team Delegate</mat-option>
-      <mat-option value="User">User</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <button mat-raised-button type="submit">Edit Role</button>
-</form>
-} @if (alert !== '' && error === '') {
-<h3>{{ alert }}</h3>
-} @else if (error !== '' && alert === '') {
-<h3>{{ error }}</h3>
-}
+    </mat-form-field>
+    <br />
+    <button mat-raised-button type="submit">Done</button>
+  </form>
+  } @else if (value === "edit_role") {
+  <form (ngSubmit)="editUserRole(user, selectedUserId)">
+    <mat-form-field>
+      <mat-label>Select a user</mat-label>
+      <mat-select [(value)]="selectedUserId">
+        @for (user of users; track users.user_id) {
+        <mat-option value="{{ user.user_id }}" *ngIf="user.role !== 'Admin'"
+          >{{ user.user_name }} {{ user.user_surname }}</mat-option
+        >
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Select a role</mat-label>
+      <mat-select [(value)]="user.role">
+        <mat-option value="Admin">Admin</mat-option>
+        <mat-option value="Referee">Referee</mat-option>
+        <mat-option value="Team Delegate">Team Delegate</mat-option>
+        <mat-option value="User">User</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button type="submit">Done</button>
+  </form>
+  } @if (alert !== '' && error === '') {
+  <h3 class="alert">{{ alert }}</h3>
+  } @else if (error !== '' && alert === '') {
+  <h3 class="alert">{{ error }}</h3>
+  }
+</div>

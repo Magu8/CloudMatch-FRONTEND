@@ -22,7 +22,6 @@
 
     &::placeholder {
       color: color(#ffffff a(0.8));
-      text-transform: uppercase;
       letter-spacing: 1.5px;
     }
 
@@ -40,7 +39,7 @@
 }
 
 #search_results {
-  width: 60%;
+  width: 47%;
   position:absolute;
   transition: all 0.1s ease-in-out;
   padding: 10px;
