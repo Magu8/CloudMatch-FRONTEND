@@ -22,19 +22,23 @@
     } @if(Object.keys(leagueInfo).length > 0) {
     <calendar [leagueId]="leagueInfo.league_id" />
     <div class="league_data">
-      <img
-        src="{{ leagueInfo.league_logo }}"
-        alt="{{ leagueInfo.league_name }}"
-      />
-      <h3>{{ leagueInfo.league_name }}</h3>
-      <h5>{{ leagueInfo.start_date }} - {{ leagueInfo.end_date }}</h5>
+      <div class="image">
+        <div class="image_background">
+          <img
+            src="{{ leagueInfo.league_logo }}"
+            alt="{{ leagueInfo.league_name }}"
+          />
+        </div>
 
-      @if (activeUser.role === "Team Delegate") {
-      <button (click)="participateTeamIntoLeague(leagueInfo.league_id)">
-        Participate team into {{ leagueInfo.league_name }}
-      </button>
-      {{ alert }}
-      }
+        <h3>{{ leagueInfo.league_name }}</h3>
+        <h5>{{ leagueInfo.start_date }} - {{ leagueInfo.end_date }}</h5>
+        @if (activeUser.role === "Team Delegate") {
+        <button (click)="participateTeamIntoLeague(leagueInfo.league_id)">
+          Participate team into {{ leagueInfo.league_name }}
+        </button>
+        {{ alert }}
+        }
+      </div>
     </div>
     @if (participants.length !== 0) {
     <div class="participants_content">
@@ -46,33 +50,36 @@
       </div>
       <mat-divider class="divider"></mat-divider>
       @for (participant of participants; track participant.team_id) {
-      
-        @if(activeUser.user_id === participant.team_delegate){
-        <div
-          class="participants_data"
-          [routerLink]="['/CloudMatch/Team', { type: 'delegate' }]"
-        >
+      @if(activeUser.user_id === participant.team_delegate){
+      <div
+        class="participants_data"
+        [routerLink]="['/CloudMatch/Team', { type: 'delegate' }]"
+      >
+        <div class="imagae">
           <img
             src="{{ participant.team_logo }}"
             alt="{{ participant.team_name }}"
           />
-          <h3>{{ participant.team_name }}</h3>
-          <h3>{{ participant.score }}</h3>
         </div>
-        } @else {
-        <div
-          class="participants_data"
-          [routerLink]="['/CloudMatch/Team', { info: participant.team_name }]"
-        >
+        <h3>{{ participant.team_name }}</h3>
+        <h3>{{ participant.score }}</h3>
+      </div>
+      } @else {
+      <div
+        class="participants_data"
+        [routerLink]="['/CloudMatch/Team', { info: participant.team_name }]"
+      >
+        <div class="imagae">
           <img
             src="{{ participant.team_logo }}"
             alt="{{ participant.team_name }}"
           />
-          <h3>{{ participant.team_name }}</h3>
-          <h3>{{ participant.score }}</h3>
         </div>
-        }
-    
+        <h3>{{ participant.team_name }}</h3>
+        <h3>{{ participant.score }}</h3>
+      </div>
+      }
+
       <mat-divider class="participants_divider"></mat-divider>
       }
     </div>

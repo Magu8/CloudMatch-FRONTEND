@@ -1,0 +1,92 @@
+#screen {
+  background-color: #1d1d1d;
+  padding: 2px;
+  margin-top: 68px;
+  color: white;
+}
+
+.top_menu {
+  display: grid;
+  background-color: #033248;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  text-align: center;
+  padding: 7px;
+  justify-items: center;
+  align-items: center;
+
+  h1 {
+    margin: 0px 10px 10px 10px;
+    padding: 10px 45px;
+    background-color: black;
+    border: 2px solid #00c4ff;
+  }
+
+  h2,
+  h4 {
+    margin: 0;
+  }
+
+  .score {
+    font-size: 40px;
+  }
+
+  .score,
+  .foul,
+  .period {
+    margin: 0px 45px 10px 45px;
+    padding: 15px 45px;
+    background-color: black;
+    border: 1px solid #00c4ff;
+  }
+
+  .foul,
+  .period {
+    font-size: 25px;
+  }
+
+  .time {
+    font-size: 40px;
+    padding: 50px 40px;
+    margin: 2px;
+
+    border: 4px solid #ffffff;
+  }
+
+  .stopgo {
+    margin: 15px;
+    height: 40px;
+    width: 40px;
+    font-size: 26px;
+  }
+}
+
+.bottom_menu {
+  display: flex;
+  justify-content: center;
+  margin: 0 26px 26px 26px;
+  height: 50px;
+  background-color: #3b3b3b;
+  padding: 20px;
+
+  button {
+    margin: 5px;
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+   
+  }
+
+  .scoreBtn {
+    font-weight: bold;
+    font-size: 40px;
+    color: white;
+    background-color: rgb(77, 158, 104);
+  }
+
+  .foulBtn {
+    font-weight: bold;
+    color: white;
+    background-color: rgb(163, 71, 47);
+  }
+}

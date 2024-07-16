@@ -2,104 +2,159 @@
 
 @if (activeUser.role === "Referee") {
 
-<h2>IN GAME</h2>
-
 <!-- local -->
-<div
-  class="example"
-  cdkDropList
-  #inGameLocalList="cdkDropList"
-  [cdkDropListData]="inGameLocal"
-  [cdkDropListConnectedTo]="[localBenchList]"
-  class="example-list"
-  (cdkDropListDropped)="drop($event)"
->
-  @for (lPlayer of inGameLocal; track inGameLocal.player_id) {
-  <button (click)="btn(lPlayer.player_id, 'local')" cdkDrag>
-    {{ lPlayer.player_number }} {{ lPlayer.player_nickname }}
-  </button>
-  }
+<div class="out_game">
+  <h2>LOCAL BENCH</h2>
+  <div
+    cdkDropList
+    #localBenchList="cdkDropList"
+    [cdkDropListData]="benchLocalStorage ? benchLocalStorage : benchLocal"
+    [cdkDropListConnectedTo]="[inGameLocalList]"
+    class="example-list-out"
+    (cdkDropListDropped)="drop($event)"
+  >
+    @for (lPlayer of benchLocalStorage ? benchLocalStorage : benchLocal; track
+    benchLocalStorage ? benchLocalStorage.player_id : benchLocal.player_id) {
+    <div class="player_btn_out" cdkDrag>
+      <h3>{{ lPlayer.player_number }}</h3>
+      <h5>{{ lPlayer.player_nickname }}</h5>
+    </div>
+    }
+  </div>
+</div>
+
+<div class="container">
+  <!-- local -->
+
+  <div class="in_game">
+    <div class="local_in">
+      <div
+        class="example"
+        cdkDropList
+        #inGameLocalList="cdkDropList"
+        [cdkDropListData]="inGameLocal"
+        [cdkDropListConnectedTo]="[localBenchList]"
+        class="example-list-in"
+        (cdkDropListDropped)="drop($event)"
+      >
+        @for (lPlayer of inGameLocal; track inGameLocal.player_id) {
+
+        <div
+          class="player_btn"
+          tabindex="0"
+          (click)="btn(lPlayer.player_id, 'local')"
+          cdkDrag
+        >
+          <h3>{{ lPlayer.player_number }}</h3>
+          <h5>{{ lPlayer.player_nickname }}</h5>
+        </div>
+
+        }
+      </div>
+    </div>
+
+    <!-- visitor -->
+
+    <div class="visitor_in">
+      <div
+        class="example"
+        cdkDropList
+        #inGameVisitorList="cdkDropList"
+        [cdkDropListData]="inGameVisitor"
+        [cdkDropListConnectedTo]="[visitorBenchList]"
+        class="example-list-in"
+        (cdkDropListDropped)="drop($event)"
+      >
+        @for (vPlayer of inGameVisitor; track inGameVisitor.player_id) {
+        <div
+          class="player_btn"
+          tabindex="0"
+          (click)="btn(vPlayer.player_id, 'visitor')"
+          cdkDrag
+        >
+          <h3>{{ vPlayer.player_number }}</h3>
+          <h5>{{ vPlayer.player_nickname }}</h5>
+        </div>
+
+        }
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- visitor -->
 
-<div
-  class="example"
-  cdkDropList
-  #inGameVisitorList="cdkDropList"
-  [cdkDropListData]="inGameVisitor"
-  [cdkDropListConnectedTo]="[visitorBenchList]"
-  class="example-list"
-  (cdkDropListDropped)="drop($event)"
->
-  @for (vPlayer of inGameVisitor; track inGameVisitor.player_id) {
-  <button (click)="btn(vPlayer.player_id, 'visitor')" cdkDrag>
-    {{ vPlayer.player_number }} {{ vPlayer.player_nickname }}
-  </button>
-  }
+<div class="out_game">
+  <div
+    cdkDropList
+    #visitorBenchList="cdkDropList"
+    [cdkDropListData]="benchVisitorStorage ? benchVisitorStorage : benchVisitor"
+    [cdkDropListConnectedTo]="[inGameVisitorList]"
+    class="example-list-out"
+    (cdkDropListDropped)="drop($event)"
+  >
+    @for (vPlayer of benchVisitorStorage ? benchVisitorStorage : benchVisitor ;
+    track benchVisitorStorage ? benchVisitorStorage.player_id :
+    benchVisitor.player_id) {
+    <div class="player_btn_out" cdkDrag>
+      <h3>{{ vPlayer.player_number }}</h3>
+      <h5>{{ vPlayer.player_nickname }}</h5>
+    </div>
+    }
+  </div>
+  <h2>VISITOR BENCH</h2>
 </div>
-
-<h2>BENCH</h2>
-
-<!-- local -->
-
-<div
-  cdkDropList
-  #localBenchList="cdkDropList"
-  [cdkDropListData]="benchLocalStorage ? benchLocalStorage : benchLocal"
-  [cdkDropListConnectedTo]="[inGameLocalList]"
-  class="example-list"
-  (cdkDropListDropped)="drop($event)"
->
-  @for (lPlayer of benchLocalStorage ? benchLocalStorage : benchLocal; track
-  benchLocalStorage ? benchLocalStorage.player_id : benchLocal.player_id) {
-  <button cdkDrag>
-    {{ lPlayer.player_number }} {{ lPlayer.player_nickname }}
-  </button>
-  }
-</div>
-
-<!-- visitor -->
-
-<div
-  cdkDropList
-  #visitorBenchList="cdkDropList"
-  [cdkDropListData]="benchVisitorStorage ? benchVisitorStorage : benchVisitor"
-  [cdkDropListConnectedTo]="[inGameVisitorList]"
-  class="example-list"
-  (cdkDropListDropped)="drop($event)"
->
-  @for (vPlayer of benchVisitorStorage ? benchVisitorStorage : benchVisitor ;
-  track benchVisitorStorage ? benchVisitorStorage.player_id :
-  benchVisitor.player_id) {
-  <button cdkDrag>
-    {{ vPlayer.player_number }} {{ vPlayer.player_nickname }}
-  </button>
-  }
-</div>
-
 
 } @else {
+  
+<div class="out_game">
+  <h2>LOCAL BENCH</h2>
+  <div class="example-list-out">
+    @for (lPlayer of benchLocalStorage; track benchLocalStorage.player_id) {
+    <div class="player_btn_out">
+      <h3>{{ lPlayer.player_number }}</h3>
+      <h5>{{ lPlayer.player_nickname }}</h5>
+    </div>
+    }
+  </div>
+</div>
 
-<h2>IN GAME</h2>
+<div class="container">
+  <div class="in_game">
+    <div class="local_in">
+      <div class="example" class="example-list-in">
+        @for (lPlayer of inGameLocal; track inGameLocal.player_id) {
+        <div class="player_btn">
+          <h3>{{ lPlayer.player_number }}</h3>
+          <h5>{{ lPlayer.player_nickname }}</h5>
+        </div>
 
-@for (lPlayer of inGameLocal; track inGameLocal.player_id) {
-<h5>{{ lPlayer.player_number }} {{ lPlayer.player_nickname }}</h5>
-<br />
-} 
-@for (vPlayer of inGameVisitor; track inGameVisitor.player_id) {
-<h5>{{ vPlayer.player_number }} {{ vPlayer.player_nickname }}</h5>
+        }
+      </div>
+    </div>
+    <div class="visitor_in">
+      <div class="example" class="example-list-in">
+        @for (vPlayer of inGameVisitor; track inGameVisitor.player_id) {
+        <div class="player_btn">
+          <h3>{{ vPlayer.player_number }}</h3>
+          <h5>{{ vPlayer.player_nickname }}</h5>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="out_game">
+  <div class="example-list-out">
+    @for (vPlayer of benchVisitorStorage ; track benchVisitorStorage.player_id )
+    {
+    <div class="player_btn_out">
+      <h3>{{ vPlayer.player_number }}</h3>
+      <h5>{{ vPlayer.player_nickname }}</h5>
+    </div>
+    }
+  </div>
+  <h2>VISITOR BENCH</h2>
+</div>
 }
-
-<h2>BENCH</h2>
-
-@for (lPlayer of benchLocalStorage; track benchLocalStorage.player_id ) {
-<h5>{{ lPlayer.player_number }} {{ lPlayer.player_nickname }}</h5>
-}
-<br />
-@for (vPlayer of benchVisitorStorage ; track benchVisitorStorage.player_id ) {
-<h5>{{ vPlayer.player_number }} {{ vPlayer.player_nickname }}</h5>
-} 
-}
-
-<br />

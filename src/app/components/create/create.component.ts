@@ -209,29 +209,33 @@ export class CreateComponent implements OnInit {
   }
 
   createMatchDay(matchBody: MatchDate) {
-    matchBody.match_date = this.otherService.formatDate(matchBody.match_date)
-    matchBody.match_time = this.otherService.floatTime(matchBody.match_time);
-    this.matchService
-      .createMatch(
-        matchBody,
-        this.selectedLeagueId,
-        this.selectedTeamLocalId,
-        this.selectedTeamVisitorId,
-        this.selectedUserId
-      )
-      .subscribe({
-        next: (success: any) => {
-          this.error = '';
-          this.alert = success.message;
-        },
-        error: (fail: any) => {
-          this.alert = '';
-          if (fail.status === 404) {
-            this.error = fail.error.message;
-          } else {
-            this.error = fail.error.message;
-          }
-        },
-      });  
+    if (matchBody.match_date === '' ) {
+      this.error = 'Some data is missing';
+    } else {
+      matchBody.match_date = this.otherService.formatDate(matchBody.match_date);
+      matchBody.match_time = this.otherService.floatTime(matchBody.match_time);
+      this.matchService
+        .createMatch(
+          matchBody,
+          this.selectedLeagueId,
+          this.selectedTeamLocalId,
+          this.selectedTeamVisitorId,
+          this.selectedUserId
+        )
+        .subscribe({
+          next: (success: any) => {
+            this.error = '';
+            this.alert = success.message;
+          },
+          error: (fail: any) => {
+            this.alert = '';
+            if (fail.status === 404) {
+              this.error = fail.error.message;
+            } else {
+              this.error = fail.error.message;
+            }
+          },
+        });
+    }
   }
 }

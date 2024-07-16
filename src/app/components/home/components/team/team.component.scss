@@ -1,3 +1,157 @@
-.team{
-    background-color: aqua;
+#team {
+  background-color: #1d1d1d;
+  padding: 25px;
+  margin-top: 68px;
+  color: white;
+
+  .team_logo {
+    max-width: 12.5rem;
+  }
+
+  .team_data_background {
+    background-image: url("../../../../../assets/background_register.png");
+    color: rgb(255 255 255);
+    background-size: cover;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .team_back {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: white;
+    .team_name {
+      font-size: 25px;
+    }
+  }
+
+  .team_data {
+    padding: 10px;
+    margin: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h2 {
+      margin: 10px 0 10px 0;
+      font-size: 25px;
+    }
+    h3 {
+      margin: 0;
+    }
+    .delegate_name {
+      font-weight: bold;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+  }
+  .divider {
+    background-color: rgb(255, 183, 3);
+    height: 5px;
+  }
+}
+
+.image {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.image_background {
+  margin: 30px;
+  background-color: white;
+  border-radius: 71%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.team_players {
+  margin-top: 10px;
+  background-color: rgb(41, 41, 41);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 10px;
+  row-gap: 20px;
+  padding: 10px;
+  justify-content: center;
+}
+
+.team_players_add {
+  background-color: rgb(255, 183, 3);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 180px;
+  border-radius: 5px;
+  h3 {
+    font-size: 20px;
+  }
+}
+
+.team_players_data {
+  background-color: #535455;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 180px;
+  border-radius: 5px;
+  h3 {
+    font-size: 20px;
+  }
+}
+
+.player_photo {
+  height: 60%;
+  width: 70%;
+}
+.alert {
+  position: absolute;
+}
+
+.fav_divider {
+  background-color: rgb(33, 158, 188);
+  height: 5px;
+  margin-bottom: 20px;
+}
+
+.fav_teams {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  justify-items: center;
+}
+
+.fav_team {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 5px 10px 5px;
+  background-color: white;
+  color: #1d1d1d;
+  height: 145px;
+  width: 150px;
+  padding: 10px;
+
+  h4 {
+    position: relative;
+    top: -20px;
+  }
+
+  .fav_logo {
+    max-width: 125px;
+  }
+}
+
+.mini_menu_btn {
+  background-color: white;
+  margin: 0 5px;
 }

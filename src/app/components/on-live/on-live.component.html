@@ -1,43 +1,51 @@
-@if (activeUser.role === "Referee") {
+<div id="screen">
+  <div class="top_menu">
+    <div class="score_fouls">
+      <h4>LOCAL</h4>
+      <h1>{{ onLiveMatch.local_team }}</h1>
+      <h2>SCORE</h2>
+      <h2 class="score">{{ onLiveMatch.local_score }}</h2>
+      <h2>FOULS</h2>
+      <h4 class="foul">{{ onLiveMatch.local_fouls }}</h4>
+    </div>
+    <div class="time_part">
+      <h1 class="time">{{ onLiveMatch.TIME }}</h1>
+      @if (activeUser.role === "Referee") { @if (timerOn) {
+      <button class="stopgo" (click)="timerBtn()">||</button>
+      } @else {
+      <button class="stopgo" (click)="timerBtn()">&gt;</button>
+      } }
+      <h4>PERIOD</h4>
+      <h2 class="period">{{ onLiveMatch.PERIOD }}</h2>
+    </div>
+    <div class="score_fouls">
+      <h4>VISITOR</h4>
+      <h1>{{ onLiveMatch.visitor_team }}</h1>
+      <h2>SCORE</h2>
+      <h2 class="score">{{ onLiveMatch.visitor_score }}</h2>
+      <h2>FOULS</h2>
+      <h4 class="foul">{{ onLiveMatch.visitor_fouls }}</h4>
+    </div>
+  </div>
 
-<h1>{{ onLiveMatch.TIME }}</h1>
-@if (timerOn) {
-<button (click)="timerBtn()">||</button>
-} @else {
-<button (click)="timerBtn()">&gt;</button>
-}
+  <cloudMatch-player-bench
+    [activeUser]="activeUser"
+    [benchLocal]="localPlayers"
+    [benchVisitor]="visitorPlayers"
+    (sendPlayerVorL)="scoreOrFoulPlayer($event)"
+  ></cloudMatch-player-bench>
 
-<h2>{{ onLiveMatch.PERIOD }}</h2>
+  @if(activeUser.role === "Referee") {
 
-<h1>{{ onLiveMatch.local_team }}</h1>
-<h2>SCORE</h2>
-<h2>{{ onLiveMatch.local_score }}</h2>
-<h2>FOULS</h2>
-<h4>{{onLiveMatch.local_fouls}}</h4>
-
-<h1>{{ onLiveMatch.visitor_team }}</h1>
-<h2>SCORE</h2>
-<h2>{{ onLiveMatch.visitor_score }}</h2>
-<h2>FOULS</h2>
-<h4>{{onLiveMatch.visitor_fouls}}</h4>
-
-<button (click)="scoreBtn(1)">1</button><button (click)="scoreBtn(2)">2</button><button (click)="scoreBtn(3)" >3</button>
-<button (click)="foulBtn()">FOUL</button>
-
-
-<button (click)="saveMatch(onLiveMatch)">Finish Match</button>
-<h4>{{error}}</h4>
-
-} @else {
-
-<h1>{{ onLiveMatch.TIME }}</h1>
-<h2>{{ onLiveMatch.PERIOD }}</h2>
-
-<h3>{{ onLiveMatch.local_team }}</h3>
-<h2>{{ onLiveMatch.local_score }}</h2>
-<h3>{{ onLiveMatch.visitor_team }}</h3>
-<h2>{{ onLiveMatch.visitor_score }}</h2>
-
-}
-
-<cloudMatch-player-bench [activeUser]="activeUser" [benchLocal]="localPlayers" [benchVisitor]="visitorPlayers" (sendPlayerVorL)="scoreOrFoulPlayer($event)"></cloudMatch-player-bench>
+  <div class="bottom_menu">
+    <button class="scoreBtn" (click)="scoreBtn(1)">1</button
+    ><button class="scoreBtn" (click)="scoreBtn(2)">2</button
+    ><button class="scoreBtn" (click)="scoreBtn(3)">3</button>
+    <button class="foulBtn" (click)="foulBtn()">FOUL</button>
+    <button class="finishBtn" (click)="saveMatch(onLiveMatch)">
+      Finish Match
+    </button>
+    <h4>{{ error }}</h4>
+  </div>
+  }
+</div>

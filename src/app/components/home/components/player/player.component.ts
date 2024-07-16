@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PlayerService } from '../../../../services/player.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'player',
   standalone: true,
-  imports: [],
+  imports: [MatDividerModule],
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss',
 })

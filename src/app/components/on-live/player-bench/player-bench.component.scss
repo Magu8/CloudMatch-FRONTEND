@@ -1,55 +1,168 @@
 .example-container {
-    width: 400px;
-    max-width: 100%;
-    margin: 0 25px 25px 0;
-    display: inline-block;
-    vertical-align: top;
+  width: 400px;
+  max-width: 100%;
+  margin: 0 25px 25px 0;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.example-list-in {
+  background: none;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: space-evenly;
+}
+
+.example-list {
+  min-height: 60px;
+  background: none;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+}
+
+.example-box {
+  padding: 20px 10px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(255, 255, 255, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 14px;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.basketball_field {
+  width: 100%;
+  height: auto;
+}
+
+.in_game {
+  background-image: url("https://i.pinimg.com/originals/8c/47/75/8c4775a21c402394c22b114422ddebb5.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 452px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.local_in,
+.visitor_in {
+  margin: 0 5px 0 5px;
+  flex: 1;
+  background: none;
+  border-radius: 5px;
+  align-content: center;
+}
+
+img {
+  max-width: 36rem;
+}
+
+.player_btn {
+  display: grid;
+  flex-direction: column;
+  grid-template-columns: repeat(1, 1fr);
+  background: #033248;
+  justify-items: center;
+  padding: 5px;
+  width: 25%;
+  border-radius: 8px;
+  h3,
+  h5 {
+    margin: 0;
   }
-  
-  .example-list {
-    border: solid 1px #ccc;
-    min-height: 60px;
-    background: white;
-    border-radius: 4px;
-    overflow: hidden;
-    display: block;
+
+  h3 {
+    font-weight: bold;
+    font-size: 25px;
   }
-  
-  .example-box {
-    padding: 20px 10px;
-    border-bottom: solid 1px #ccc;
-    color: rgba(0, 0, 0, 0.87);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-    cursor: move;
-    background: white;
-    font-size: 14px;
+}
+
+.player_btn:active,
+.player_btn:focus {
+  background: #ffb703;
+  border: solid black 1px;
+  outline: none;
+}
+
+.out_game {
+  padding: 5px;
+  text-align: center;
+  margin: 17px 0;
+
+  h2 {
+    margin: 10px;
   }
-  
-  .cdk-drag-preview {
-    box-sizing: border-box;
-    border-radius: 4px;
-    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-                0 8px 10px 1px rgba(0, 0, 0, 0.14),
-                0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.input {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.example-list-out {
+  background: none;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: space-evenly;
+}
+
+.player_btn_out {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  background: rgb(62, 64, 66);
+  justify-items: center;
+  padding: 5px;
+  width: 25%;
+  border-radius: 8px;
+  h3,
+  h5 {
+    margin: 0;
   }
-  
-  .cdk-drag-placeholder {
-    opacity: 0;
+
+  h3 {
+    font-weight: bold;
+    font-size: 25px;
   }
-  
-  .cdk-drag-animating {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-  }
-  
-  .example-box:last-child {
-    border: none;
-  }
-  
-  .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-  }
-  
+}

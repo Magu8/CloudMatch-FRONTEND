@@ -1,22 +1,54 @@
-#create{
-    background-color: #1d1d1d;
-    padding: 120px 150px 130px 35px;
-    
-    margin-top: 68px;
-    h2 {
-        color: white;
-        margin: 0;
+#create {
+  background-image: url("../../../assets/background_register.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 70% 20%;
+  margin-top: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 108px;
+
+  margin-top: 68px;
+  h2 {
+    font-size: 25px;
+    color: rgb(142, 202, 230);
+    margin: 0;
+  }
+
+  .divider {
+    background-color: rgb(255, 255, 255);
+    height: 2px;
+    margin: 20px 0;
+  }
+
+  .form_fields {
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: white;
+    padding: 40px;
+    border-radius: 8px;
+  }
+
+  .alert {
+    color: rgb(255, 255, 255);
+  }
+
+  .button {
+    margin-top: 20px;
+    width: 100%;
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+    &:hover {
+      background-color: #ffce47;
+      color: white;
     }
+  }
 
-    .divider {
-        background-color:  rgb(255, 255, 255);
-        height: 2px;
-        margin: 20px 0;
-    }
-
-
-    .alert{
-        color: white;
-    }
-
+  .ngx-timepicker-field-example {
+    background-color: white;
+    color: black;
+    width: 250px;
+  }
 }

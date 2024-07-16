@@ -1,13 +1,28 @@
-<p>player works!</p>
-<button (click)="btn()">aaaaa</button>
-<div>
-  <img src="{{ player.player_photo }}" alt="{{ player.player_nickname }}" />
-  <h2>{{ player.player_nickname }}</h2>
-  <h2>Nº {{ player.player_number }}</h2>
-  <h3>{{ player.player_name }} {{ player.player_surname }}</h3>
-  <h3>Age: {{ player.age }}</h3>
-  <h2>Team</h2>
-  <h3>{{ player.team_name }}</h3>
-  <img src="{{ player.team_logo }}" alt="{{ player.team_name }}" />
-  <h4>Member since: {{ player.member_since }}</h4>
+<div id="player">
+  <div class="player_container">
+    <h1>Player data</h1>
+    <mat-divider class="divider"></mat-divider>
+    <div class="player_info">
+    <div class="image_background">
+      <img
+        class="player_photo"
+        src="{{ player.player_photo }}"
+        alt="{{ player.player_nickname }}"
+      />
+      <h2 class="name">{{ player.player_nickname }}</h2>
+      <h2>Nº {{ player.player_number }}</h2>
+    </div>
+    <div class="player_data">
+      <h3>Name</h3>
+      <h2 class="data">{{ player.player_name }}</h2>
+      <h3>Surname</h3>
+      <h2 class="data">{{ player.player_surname }}</h2>
+      <h3>Age</h3>
+      <h2 class="data">{{ player.age }}</h2>
+      <h3>Team</h3>
+      <h2 class="data">{{ player.team_name }}</h2>
+      <h4>Member since: {{ player.member_since }}</h4>
+    </div>
+    </div>
+  </div>
 </div>

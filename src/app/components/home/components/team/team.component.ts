@@ -6,11 +6,12 @@ import { setMyTeam } from '../../../../actions/myTeam.actions';
 import { HighchartsChartModule } from 'highcharts-angular';
 import * as Highcharts from 'highcharts';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'team',
   standalone: true,
-  imports: [RouterLink, HighchartsChartModule, MatButtonModule],
+  imports: [RouterLink, HighchartsChartModule, MatButtonModule,MatDividerModule],
   templateUrl: './team.component.html',
   styleUrl: './team.component.scss',
 })
@@ -176,7 +177,7 @@ export class TeamComponent implements OnInit {
     };
   }
 
-  showMiniMenu(selectedTeam: any){
+  showMiniMenu(selectedTeam: any){    
     if (this.miniMenu) {
       this.miniMenu = false
     } else {

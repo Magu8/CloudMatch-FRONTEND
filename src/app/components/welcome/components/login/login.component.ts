@@ -22,8 +22,8 @@ export class LoginComponent {
   private store = inject(Store);
 
   login: Login = {
-    email: 'mg@cloudMatch.com',
-    password: 'iamadmin',
+    email: 'ds@cloudMatch.com',
+    password: 'iamdelegate',
   };
   scrollToRegister(): void {
     const element = document.getElementById('register_div');

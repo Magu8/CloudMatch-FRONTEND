@@ -1,95 +1,175 @@
-@if (value === "delegate") {
-<div class="team"><h1>MY TEAM</h1></div>
-
-<div>
-  <h2>{{ myTeam.team_name }}</h2>
-  <img src="{{ myTeam.team_logo }}" alt="{{ myTeam.team_name }}" />
-  <h3>Delegate:</h3>
-  <h2>{{ myTeam.team_delegate }}</h2>
-</div>
-
-<h2>Players</h2>
-<h4>{{ error }}</h4>
-<a [routerLink]="['/CloudMatch/CREATE', { type: 'player' }]">Add Player</a>
-@for (player of players; track players.player_id) {
-<div [routerLink]="['/CloudMatch/Player', player.player_id]">
-  <img src="{{ player.player_photo }}" alt="{{ player.player_nickname }}" />
-  <h3>{{ player.player_nickname }}</h3>
-</div>
-}
-
-<div class="w-100">
-  <div class="card">
-    <div class="card-body">
-      <!-- Title -->
-      <h5 class="card-title">Graph</h5>
-      <!-- Chart -->
-      <highcharts-chart
-        [Highcharts]="myGraph"
-        [options]="configGraph"
-        style="width: 100%; height: 400px; display: block"
-      ></highcharts-chart>
-      <!-- Action -->
-      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-    </div>
+<div id="team">
+  @if (value === "delegate") {
+  <!-- <div>
+    <h2>{{ myTeam.team_name }}</h2>
+    <img src="{{ myTeam.team_logo }}" alt="{{ myTeam.team_name }}" />
+    <h3>Delegate:</h3>
+    <h2>{{ myTeam.team_delegate }}</h2>
   </div>
-</div>
 
-
-} @else if (value === "my_favorites"){
-<h1>My favorites</h1>
-@for (favTeam of favoriteTeams; track favoriteTeams.team_id) {
-  <button  mat-raised-button (click)="showMiniMenu(favTeam)">{{favTeam.team_name}}</button>
-} 
-@if (miniMenu) {
-  <div>
-    <button  mat-button (click)="getStats(selectedTeam.team_id)" >Show Stats</button>
-    <button  mat-button [routerLink]="['/CloudMatch/Team', { info: selectedTeam.team_name }]" >Show Team</button>
-  </div>
-}
-
-
-@if (!hideGraphs) {
-<div class="w-100">
-  <div class="card">
-    <div class="card-body">
-      <!-- Title -->
-      <h5 class="card-title">Graph</h5>
-      <!-- Chart -->
-      <highcharts-chart
-        [Highcharts]="myGraph"
-        [options]="configGraph"
-        style="width: 100%; height: 400px; display: block"
-      ></highcharts-chart>
-      <!-- Action -->
-      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-    </div>
-  </div>
-</div>
-} 
-
-} @else { @if (Object.keys(team).length > 0) {
-<div>
-  <h2>{{ team.team_name }}</h2>
-  <img src="{{ team.team_logo }}" alt="{{ team.team_name }}" />
-  <h3>Delegate:</h3>
-  <h2>{{ team.team_delegate }}</h2>
-</div>
-@if (isFave) {
-<button (click)="removeTeamFromFaves()">Remove from faves</button> } @else
-{<button (click)="addTeamToFaves()">Add to faves</button>
-}
-<h5>{{ alert }}</h5>
-<div>
-  @if (Object.keys(team).length > 0) {
   <h2>Players</h2>
-  <h4>{{ error }}</h4>
   @for (player of players; track players.player_id) {
   <div [routerLink]="['/CloudMatch/Player', player.player_id]">
     <img src="{{ player.player_photo }}" alt="{{ player.player_nickname }}" />
     <h3>{{ player.player_nickname }}</h3>
   </div>
 
-  } }
+} -->
+
+  <div class="team_data_background">
+    <div class="team_back">
+      <h2 class="team_name">{{ myTeam.team_name }}</h2>
+      <mat-divider class="divider"></mat-divider>
+      <div class="team_data">
+        <div class="image">
+          <div class="image_background">
+            <img
+              class="team_logo"
+              src="{{ myTeam.team_logo }}"
+              alt="{{ myTeam.team_name }}"
+            />
+          </div>
+        </div>
+        <h3>Delegate:</h3>
+        <h3 class="delegate_name">{{ myTeam.team_delegate }}</h3>
+      </div>
+    </div>
+  </div>
+
+  <h2>Players</h2>
+  <h4>{{ error }}</h4>
+  <mat-divider class="divider"></mat-divider>
+  <div class="team_players">
+    <h4 class="alert">{{ error }}</h4>
+    @for (player of players; track players.player_id) {
+    <div
+      class="team_players_data"
+      [routerLink]="['/CloudMatch/Player', player.player_id]"
+    >
+      <img
+        class="player_photo"
+        src="{{ player.player_photo }}"
+        alt="{{ player.player_nickname }}"
+      />
+      <h3>{{ player.player_nickname }}</h3>
+    </div>
+
+    }
+    <div
+      class="team_players_add"
+      [routerLink]="['/CloudMatch/CREATE', { type: 'player' }]"
+    >
+      <h3>Add Player</h3>
+      <h2>+</h2>
+    </div>
+  </div>
+
+  <div class="w-100">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Graph</h5>
+        <highcharts-chart
+          [Highcharts]="myGraph"
+          [options]="configGraph"
+          style="width: 100%; height: 400px; display: block"
+        ></highcharts-chart>
+      </div>
+    </div>
+  </div>
+
+  } @else if (value === "my_favorites"){
+  <h1>My favorites</h1>
+  <mat-divider class="fav_divider"></mat-divider>
+  <div class="fav_teams">
+    @for (favTeam of favoriteTeams; track favoriteTeams.team_id) {
+
+    <div class="fav_team" mat-raised-button (click)="showMiniMenu(favTeam)">
+      <img
+        class="fav_logo"
+        src="{{ favTeam.team_logo }}"
+        alt="{{ favTeam.team_name }}"
+      />
+      <h4>{{ favTeam.team_name }}</h4>
+    </div>
+
+    }
+  </div>
+  @if (miniMenu) {
+  <div class="mini_menu">
+    <button
+      mat-button
+      class="mini_menu_btn"
+      (click)="getStats(selectedTeam.team_id)"
+    >
+      Show Stats
+    </button>
+    <button
+      class="mini_menu_btn"
+      mat-button
+      [routerLink]="['/CloudMatch/Team', { info: selectedTeam.team_name }]"
+    >
+      Show Team
+    </button>
+  </div>
+  } @if (!hideGraphs) {
+  <div class="w-100">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Graph</h5>
+        <highcharts-chart
+          [Highcharts]="myGraph"
+          [options]="configGraph"
+          style="width: 100%; height: 400px; display: block"
+        ></highcharts-chart>
+      </div>
+    </div>
+  </div>
+  } } @else { @if (Object.keys(team).length > 0) {
+  <div class="team_data_background">
+    <div class="team_back">
+      <h2 class="team_name">{{ team.team_name }}</h2>
+      <mat-divider class="divider"></mat-divider>
+      <div class="team_data">
+        <div class="image">
+          <div class="image_background">
+            <img
+              class="team_logo"
+              src="{{ team.team_logo }}"
+              alt="{{ team.team_name }}"
+            />
+          </div>
+        </div>
+        <h3>Delegate:</h3>
+        <h3 class="delegate_name">{{ team.team_delegate }}</h3>
+        @if (isFave) {
+        <button (click)="removeTeamFromFaves()">Remove from faves</button> }
+        @else {<button (click)="addTeamToFaves()">Add to faves</button>
+        }
+      </div>
+    </div>
+  </div>
+
+  <h5 class="alert">{{ alert }}</h5>
+
+  @if (Object.keys(team).length > 0) {
+  <h2>Players</h2>
+  <mat-divider class="divider"></mat-divider>
+  <div class="team_players">
+    <h4 class="alert">{{ error }}</h4>
+    @for (player of players; track players.player_id) {
+    <div
+      class="team_players_data"
+      [routerLink]="['/CloudMatch/Player', player.player_id]"
+    >
+      <img
+        class="player_photo"
+        src="{{ player.player_photo }}"
+        alt="{{ player.player_nickname }}"
+      />
+      <h3>{{ player.player_nickname }}</h3>
+    </div>
+
+    }
+  </div>
+  } } }
 </div>
-} }
